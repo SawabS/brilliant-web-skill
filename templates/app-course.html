@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logic — Lumen</title>
+<!-- Brilliant-style course map: sticky course card + levels + a zig-zag path of lesson nodes. -->
+<link rel="stylesheet" href="../tokens/fonts.css">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../css/brilliant.css">
+<script src="../js/brilliant.js" defer></script>
+<style>
+  .level { width: 100%; max-width: 392px; display: flex; flex-direction: column; align-items: center; }
+  .level__head { width: 100%; padding-inline: var(--space-4); position: sticky; top: 76px; z-index: 2; background: linear-gradient(var(--bg-primary) 70%, transparent); padding-block: 8px 16px; }
+  .course-path { flex: 2 1 364px; max-width: 488px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding-bottom: var(--space-24); }
+  .node-wrap { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .node-wrap .popover-card { position: relative; margin-top: 18px; }
+  .node-wrap .popover-card::before { content: ""; position: absolute; top: -10px; left: 50%; width: 18px; height: 18px; background: var(--bg-elevated); border-left: 2px solid var(--border-solid); border-top: 2px solid var(--border-solid); transform: translateX(-50%) rotate(45deg); border-radius: 4px 0 0 0; }
+  .side { display: none; }
+  @media (min-width: 1280px) { .side { display: flex; flex-direction: column; gap: var(--space-4); width: 300px; position: sticky; top: 85px; } }
+</style>
+</head>
+<body>
+<!--ICONS:start-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2.5L5 13.5h6l-1 8 8.5-11h-6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.6 3.2 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-2.3 1-4 2.3-5.2.1 1.6.8 2.7 1.9 3.2C10.3 8.6 11 5.4 12 2.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5" stroke-linecap="round"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.4h6c0-1 .3-1.8 1-2.4a6.5 6.5 0 0 0-4-11.6z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.9l10.6-6.8a1 1 0 0 0 0-1.7L9.5 4.3A1 1 0 0 0 8 5.2z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol>
+  <symbol id="i-sigma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5H6l6 7-6 7h12"/></symbol>
+  <symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.5 4.6 2.9 7 7.5 7.5-4.6.5-7 2.9-7.5 7.5-.5-4.6-2.9-7-7.5-7.5 4.6-.5 7-2.9 7.5-7.5z"/><path d="M19 15.5c.2 1.8 1.2 2.8 3 3-1.8.2-2.8 1.2-3 3-.2-1.8-1.2-2.8-3-3 1.8-.2 2.8-1.2 3-3z"/></symbol>
+</svg>
+<!--ICONS:end-->
+<header class="app-bar">
+  <div class="app-bar__inner">
+    <a class="app-bar__brand" href="#">Lumen</a>
+    <nav class="app-bar__nav" aria-label="Primary">
+      <a href="#"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-grid"/></svg>Home</a>
+      <a href="#" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-book"/></svg>Courses</a>
+      <a href="#"><svg width="16" height="16" viewBox="0 0 24 24"><use href="#i-target"/></svg>Practice</a>
+    </nav>
+    <div class="app-bar__actions">
+      <span class="xp"><svg width="14" height="14" viewBox="0 0 24 24"><use href="#i-bolt"/></svg>12</span>
+      <button class="icon-btn" aria-label="Toggle theme" data-theme-toggle><svg viewBox="0 0 24 24"><use href="#i-moon"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="course-layout">
+  <aside class="course-card">
+    <svg class="course-card__art" viewBox="0 0 100 100" aria-hidden="true">
+      <g transform="translate(50 56)"><path d="M0 -30 L34 -10 L0 10 L-34 -10Z" fill="var(--blue-400)"/><path d="M-34 -10 L0 10 L0 30 L-34 10Z" fill="var(--blue-600)"/><path d="M34 -10 L0 10 L0 30 L34 10Z" fill="var(--blue-700)"/><path d="M0 -44 L14 -36 L0 -28 L-14 -36Z" fill="var(--pear-500)"/></g>
+    </svg>
+    <h1 class="course-card__title">Logic</h1>
+    <p class="course-card__desc">Stretch your analytic muscles with codebreaking and logical robots.</p>
+    <div class="course-card__meta">
+      <span><svg viewBox="0 0 24 24"><use href="#i-book"/></svg>26 Lessons</span>
+      <span><svg viewBox="0 0 24 24"><use href="#i-puzzle"/></svg>351 Exercises</span>
+    </div>
+    <div style="width: 100%" class="stack">
+      <div class="row" style="justify-content: space-between"><span class="ts-heading-xs">Progress</span><span class="ts-body-sm c-secondary">2 of 26</span></div>
+      <div class="progress"><div class="progress__fill" style="--value: 8%"></div></div>
+    </div>
+  </aside>
+
+  <div class="course-path">
+    <section class="level" aria-label="Level 1">
+      <div class="level__head"><button class="level-header level-header--current" aria-expanded="false"><span class="level-header__kicker">Level 1</span><span class="level-header__title">Order logic</span></button></div>
+      <div class="path">
+        <div class="path__row"><button class="path__item" aria-label="Order logic, completed"><span class="node node--done hue-blue"><span class="node__tick"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-star"/></svg></span><span class="path__label">Order logic</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="node node--done hue-blue"><span class="node__tick"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-star"/></svg></span><span class="path__label">Neighbours</span></button></div>
+        <div class="path__row">
+          <div class="node-wrap">
+            <button class="path__item" aria-current="step" aria-expanded="true" aria-controls="pop"><span class="node node--current hue-blue"><span class="start-bubble">START</span><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-play"/></svg></span><span class="path__label">Heights</span></button>
+            <div class="popover-card" id="pop" role="dialog" aria-label="Heights">
+              <div class="stack" style="--stack-gap: 4px"><div class="popover-card__title">Heights</div><div class="popover-card__meta">Lesson 3 · 9 exercises · ~6 min</div></div>
+              <a class="btn3d btn3d--blue btn3d--block" href="app-lesson.html"><span class="btn3d__face">Start</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="path__row"><button class="path__item"><span class="node"><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span><span class="path__label">Comparisons</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="node node--review"></span><span class="path__label">Level review</span></button></div>
+      </div>
+    </section>
+    <section class="level" aria-label="Level 2">
+      <div class="level__head"><button class="level-header"><span class="level-header__kicker">Level 2</span><span class="level-header__title">Negation</span></button></div>
+      <div class="path">
+        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Relative comparisons</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Value logic</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Negation</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Between</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="node node--review"></span><span class="path__label">Level review</span></button></div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="side">
+    <div class="card card--elevated stack">
+      <div class="row" style="justify-content: space-between"><span class="ts-heading-sm">Your streak</span><span class="badge badge--subtle badge--pear">3 days</span></div>
+      <div class="streak"><span class="streak__day streak__day--done">M</span><span class="streak__day streak__day--done">T</span><span class="streak__day streak__day--done streak__day--today">W</span><span class="streak__day">T</span><span class="streak__day">F</span><span class="streak__day">S</span></div>
+    </div>
+    <div class="callout callout--purple"><div class="callout__title"><svg viewBox="0 0 24 24"><use href="#i-sparkle"/></svg>Up next</div><p class="ts-body-sm">Finish Level 1 to unlock practice sets for this course.</p></div>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('.path__item').forEach(b => b.addEventListener('click', e => {
+    const pop = document.getElementById('pop');
+    if (b.getAttribute('aria-controls') === 'pop') { const open = pop.hidden; pop.hidden = !open; b.setAttribute('aria-expanded', open); }
+  }));
+</script>
+</body>
+</html>

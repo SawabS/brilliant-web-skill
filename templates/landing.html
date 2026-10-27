@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumen — Learn by Doing</title>
+<!-- Brilliant-style marketing page. Swap the brand name, copy and illustrations; keep the structure. -->
+<link rel="stylesheet" href="../tokens/fonts.css">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../css/brilliant.css">
+<script src="../js/brilliant.js" defer></script>
+<style>
+  .hero__copy { display: flex; flex-direction: column; gap: var(--space-6); align-items: center; text-align: center; }
+  @media (min-width: 1280px) { .hero__copy { align-items: flex-start; text-align: left; } }
+  .hero__copy p { color: var(--text-secondary); max-width: 420px; }
+  .hero__ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
+  .awards { display: flex; gap: var(--space-5); color: var(--text-tertiary); font: var(--ts-body-xs); }
+  .awards span { display: inline-flex; align-items: center; gap: 6px; }
+  .awards svg { width: 18px; height: 18px; color: var(--yellow-500); }
+  .proof { display: grid; gap: var(--space-4); max-width: var(--size-container-lg); margin: var(--space-6) auto 0; padding-inline: var(--space-5); }
+  @media (min-width: 769px) { .proof { grid-template-columns: repeat(3, 1fr); } }
+  .proof .stat-tile__icon { width: 32px; height: 32px; color: var(--icon-secondary); margin-bottom: var(--space-2); }
+  .meet { text-align: center; display: flex; flex-direction: column; gap: var(--space-8); align-items: center; }
+  .cards-3 { display: grid; gap: var(--space-5); max-width: 1056px; margin: var(--space-10) auto 0; padding-inline: var(--space-5); }
+  @media (min-width: 769px) { .cards-3 { grid-template-columns: repeat(3, 1fr); } }
+  .topics { display: grid; gap: var(--space-6); max-width: 1055px; margin: var(--space-8) auto 0; }
+  @media (min-width: 992px) { .topics { grid-template-columns: 1fr 1.4fr; align-items: center; } }
+  .topics ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); font: var(--ts-body-base); }
+  .topics li { display: flex; gap: var(--space-2); align-items: center; }
+  .topics li svg { width: 18px; height: 18px; color: var(--icon-green-primary); }
+  .quotes { display: flex; gap: var(--space-4); overflow-x: auto; padding: var(--space-2) var(--space-5) var(--space-4); scroll-snap-type: x mandatory; max-width: 1296px; margin: var(--space-10) auto 0; }
+  .quotes .quote-card { flex: 0 0 300px; scroll-snap-align: start; display: flex; flex-direction: column; gap: var(--space-4); }
+  .quote-card blockquote { font: var(--ts-display-lg); }
+  .quote-card cite { font: var(--ts-body-sm); color: var(--text-secondary); font-style: normal; }
+  .pricing { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
+  .plans { display: grid; gap: var(--space-5); width: 100%; max-width: 688px; }
+  @media (min-width: 769px) { .plans { grid-template-columns: 1fr 1fr; } }
+  .final { background: var(--gray-950); color: var(--white); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-8); padding: var(--space-24) var(--space-5); position: relative; overflow: hidden; }
+  .final::before { content: ""; position: absolute; inset: 0; background: var(--gradient-iridescent-frame); opacity: .14; filter: blur(80px); }
+  .final > * { position: relative; }
+  .art { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<!--ICONS:start-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2.5L5 13.5h6l-1 8 8.5-11h-6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.6 3.2 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-2.3 1-4 2.3-5.2.1 1.6.8 2.7 1.9 3.2C10.3 8.6 11 5.4 12 2.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5" stroke-linecap="round"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.4h6c0-1 .3-1.8 1-2.4a6.5 6.5 0 0 0-4-11.6z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.9l10.6-6.8a1 1 0 0 0 0-1.7L9.5 4.3A1 1 0 0 0 8 5.2z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol>
+  <symbol id="i-sigma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5H6l6 7-6 7h12"/></symbol>
+  <symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.5 4.6 2.9 7 7.5 7.5-4.6.5-7 2.9-7.5 7.5-.5-4.6-2.9-7-7.5-7.5 4.6-.5 7-2.9 7.5-7.5z"/><path d="M19 15.5c.2 1.8 1.2 2.8 3 3-1.8.2-2.8 1.2-3 3-.2-1.8-1.2-2.8-3-3 1.8-.2 2.8-1.2 3-3z"/></symbol>
+</svg>
+<!--ICONS:end-->
+<div class="float-nav">
+  <nav class="float-nav__bar" aria-label="Main">
+    <a class="app-bar__brand" href="#">Lumen</a>
+    <div class="row"><a class="btn btn--sm btn--outline" href="#">Sign in</a></div>
+  </nav>
+</div>
+
+<header class="hero">
+  <div class="float-nav__spacer"></div>
+  <div class="hero__pattern" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <h1 class="display-hero">Your personal tutor for maths and code</h1>
+      <p class="ts-body-lg">Interactive lessons that adapt to you. Built by people who teach for a living.</p>
+      <div class="hero__ctas" role="group" aria-label="Who are you?">
+        <button class="btn btn--cta btn--success" aria-pressed="true">I'm a learner</button>
+        <button class="btn btn--cta" aria-pressed="false">I'm a parent or teacher</button>
+      </div>
+      <div class="awards"><span><svg viewBox="0 0 24 24"><use href="#i-star"/></svg>Editors' choice</span><span><svg viewBox="0 0 24 24"><use href="#i-star"/></svg>Featured app</span></div>
+    </div>
+    <div class="hero__media" style="aspect-ratio: 660/480">
+      <!-- Illustration: original isometric tiles in course hues. Replace with a product shot. -->
+      <svg class="art" viewBox="0 0 660 480" role="img" aria-label="Stacked learning tiles">
+        <rect width="660" height="480" fill="var(--bg-primary)"/>
+        <g transform="translate(330 250)">
+          <g id="tile">
+            <path d="M0 -60 L104 0 L0 60 L-104 0Z" fill="var(--blue-400)"/>
+            <path d="M-104 0 L0 60 L0 84 L-104 24Z" fill="var(--blue-600)"/>
+            <path d="M104 0 L0 60 L0 84 L104 24Z" fill="var(--blue-700)"/>
+          </g>
+          <g transform="translate(0 -46)"><path d="M0 -44 L76 0 L0 44 L-76 0Z" fill="var(--pear-500)"/><path d="M-76 0 L0 44 L0 64 L-76 20Z" fill="var(--pear-600)"/><path d="M76 0 L0 44 L0 64 L76 20Z" fill="var(--pear-700)"/></g>
+          <g transform="translate(0 -88)"><path d="M0 -28 L48 0 L0 28 L-48 0Z" fill="var(--pink-400)"/><path d="M-48 0 L0 28 L0 44 L-48 16Z" fill="var(--pink-600)"/><path d="M48 0 L0 28 L0 44 L48 16Z" fill="var(--pink-700)"/></g>
+          <circle cx="-190" cy="-120" r="26" fill="var(--yellow-400)"/>
+          <rect x="150" y="-150" width="64" height="64" rx="16" fill="var(--teal-300)" transform="rotate(14 182 -118)"/>
+          <path d="M-210 90 l30 -52 l30 52z" fill="var(--purple-300)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="proof" aria-label="Proof points">
+  <div class="stat-tile"><svg class="stat-tile__icon" viewBox="0 0 24 24"><use href="#i-target"/></svg><div class="stat-tile__value">Accredited</div><div class="stat-tile__label">by an independent board</div></div>
+  <div class="stat-tile"><svg class="stat-tile__icon" viewBox="0 0 24 24"><use href="#i-star"/></svg><div class="stat-tile__value">50,000+</div><div class="stat-tile__label">five-star reviews</div></div>
+  <div class="stat-tile"><svg class="stat-tile__icon" viewBox="0 0 24 24"><use href="#i-sparkle"/></svg><div class="stat-tile__value">2 million+</div><div class="stat-tile__label">learners worldwide</div></div>
+</section>
+
+<section class="section meet">
+  <h2 class="display-section">Meet your tutor</h2>
+  <div class="segmented" role="tablist" style="--n:2; --i:0" id="seg">
+    <span class="segmented__thumb"></span>
+    <button role="tab" aria-selected="true">Maths</button>
+    <button role="tab" aria-selected="false">Coding</button>
+  </div>
+</section>
+
+<section class="stack" style="--stack-gap: var(--space-24)">
+  <div class="feature-row">
+    <div class="feature-row__copy">
+      <h3 class="ts-headline-2xl">Visual and hands-on, never a cheat sheet</h3>
+      <p>Every idea starts as something you can move: drag a point, tip a scale, run a line of code. The explanation arrives once you've felt the pattern.</p>
+      <p>When you're stuck you get a nudge, not the answer, so the next problem is yours.</p>
+    </div>
+    <div class="media-panel tint-papaya"><svg class="art" viewBox="0 0 460 321" aria-hidden="true"><g transform="translate(230 170)"><line x1="-150" y1="40" x2="150" y2="40" stroke="var(--gray-900)" stroke-width="6" stroke-linecap="round"/><path d="M0 40 L-22 80 L22 80Z" fill="var(--gray-900)"/><rect x="-140" y="-10" width="70" height="50" rx="10" fill="var(--orange-400)"/><rect x="60" y="-40" width="80" height="80" rx="12" fill="var(--blue-500)"/></g></svg></div>
+  </div>
+  <div class="feature-row feature-row--flip">
+    <div class="feature-row__copy">
+      <h3 class="ts-headline-2xl">Adapts to exactly where you are</h3>
+      <p>Lumen tracks what you've mastered and what's still shaky, then builds your plan around the gaps. It speeds up when you're ready and slows down when you need it.</p>
+    </div>
+    <div class="media-panel tint-sage"><svg class="art" viewBox="0 0 460 321" aria-hidden="true"><g fill="none" stroke-width="14" stroke-linecap="round"><path d="M70 240 C 150 240, 170 90, 250 90 S 360 160, 400 80" stroke="var(--green-500)"/></g><g fill="var(--white)" stroke="var(--gray-900)" stroke-width="5"><circle cx="70" cy="240" r="14"/><circle cx="250" cy="90" r="14"/><circle cx="400" cy="80" r="14"/></g></svg></div>
+  </div>
+  <div class="feature-row">
+    <div class="feature-row__copy">
+      <h3 class="ts-headline-2xl">Progress you can actually see</h3>
+      <p>Dashboards show what clicked, what's still hard, and what to do next. Parents get a weekly summary of lessons, mastery checks and strengths.</p>
+    </div>
+    <div class="media-panel tint-oat"><svg class="art" viewBox="0 0 460 321" aria-hidden="true"><g transform="translate(90 250)"><rect x="0" y="-60" width="44" height="60" rx="8" fill="var(--purple-300)"/><rect x="70" y="-110" width="44" height="110" rx="8" fill="var(--purple-400)"/><rect x="140" y="-90" width="44" height="90" rx="8" fill="var(--purple-500)"/><rect x="210" y="-160" width="44" height="160" rx="8" fill="var(--purple-600)"/></g></svg></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="display-section">Effective and trusted</h2>
+  <div class="cards-3">
+    <article class="feature-card"><div class="feature-card__media tint-papaya"></div><div class="feature-card__body"><h3 class="ts-body-base" style="font-weight:500">Help in the moment</h3><p class="ts-body-sm">One-on-one hints whenever you're stuck, by voice or chat.</p></div></article>
+    <article class="feature-card"><div class="feature-card__media tint-sage"></div><div class="feature-card__body"><h3 class="ts-body-base" style="font-weight:500">Mastery checks</h3><p class="ts-body-sm">Short assessments confirm every concept before you move on.</p></div></article>
+    <article class="feature-card"><div class="feature-card__media tint-sky"></div><div class="feature-card__body"><h3 class="ts-body-base" style="font-weight:500">Built by teachers</h3><p class="ts-body-sm">Lessons are written and tested by educators and researchers.</p></div></article>
+  </div>
+</section>
+
+<section class="container">
+  <div class="band">
+    <h2 class="display-section">From year 5 to university and beyond</h2>
+    <div class="row" style="justify-content: center; margin-top: var(--space-6)">
+      <button class="chip" aria-pressed="true">Maths</button><button class="chip" aria-pressed="false">Computer science</button><button class="chip" aria-pressed="false">Science</button><button class="chip" aria-pressed="false">Data</button>
+    </div>
+    <div class="topics">
+      <div class="card" style="background: var(--bg-primary)">
+        <h3 class="ts-heading-md" style="margin-bottom: var(--space-4)">Maths: covered topics</h3>
+        <ul><li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Fractions and ratios</li><li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Linear equations</li><li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Functions and graphs</li><li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Probability</li><li><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Calculus</li></ul>
+      </div>
+      <div class="media-panel" style="--tint: var(--bg-primary); aspect-ratio: 16/10"><svg class="art" viewBox="0 0 400 250" aria-hidden="true"><g stroke="var(--grid-line, var(--gray-200))" stroke-width="1">
+        <path d="M40 30 V220 M90 30 V220 M140 30 V220 M190 30 V220 M240 30 V220 M290 30 V220 M340 30 V220 M40 220 H360 M40 172 H360 M40 125 H360 M40 77 H360 M40 30 H360"/></g>
+        <path d="M40 210 Q 190 230 360 40" fill="none" stroke="var(--blue-500)" stroke-width="5" stroke-linecap="round"/><circle cx="240" cy="160" r="9" fill="var(--white)" stroke="var(--blue-600)" stroke-width="4"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="display-section">Learners, parents and teachers love it</h2>
+  <div class="quotes">
+    <figure class="quote-card"><blockquote>“She gets stuck, then works it out herself. That never happened with worksheets.”</blockquote><cite>Parent of a year 8 learner</cite></figure>
+    <figure class="quote-card"><blockquote>“I finally understand why the formula works, not just how to use it.”</blockquote><cite>First-year engineering student</cite></figure>
+    <figure class="quote-card"><blockquote>“My class asks for ten more minutes. I'll take that.”</blockquote><cite>Secondary maths teacher</cite></figure>
+    <figure class="quote-card"><blockquote>“Fifteen minutes a day and my code reviews got sharper.”</blockquote><cite>Backend developer</cite></figure>
+  </div>
+</section>
+
+<section class="section pricing container">
+  <h2 class="display-section">Unlock every course</h2>
+  <div class="tabs tabs--purple" role="tablist" style="width: min(100%, 380px)">
+    <button class="tab" role="tab" aria-selected="false">Monthly</button>
+    <button class="tab" role="tab" aria-selected="true">Annual <span class="badge badge--solid badge--purple">Save 33%</span></button>
+  </div>
+  <div class="plans" role="radiogroup" aria-label="Plan">
+    <div class="plan-option" role="radio" aria-checked="true" tabindex="0"><div class="plan-card"><div class="plan-card__name">Individual</div><div class="plan-card__price"><b>$12</b><span>/month</span></div><div class="ts-body-sm c-secondary">Billed yearly</div></div></div>
+    <div class="plan-option" role="radio" aria-checked="false" tabindex="-1"><div class="plan-card"><div class="plan-card__name">Family</div><div class="plan-card__price"><b>$18</b><span>/month</span></div><div class="ts-body-sm c-secondary">Up to 6 seats</div></div></div>
+  </div>
+  <a class="btn3d btn3d--premium btn3d--wide btn3d--shimmer" href="#"><span class="btn3d__face">Subscribe now</span></a>
+  <p class="ts-body-xs c-tertiary">Billed as one payment. Cancel anytime in settings.</p>
+</section>
+
+<section class="final">
+  <h2 class="display-section" style="color: var(--white)">The best tutor you'll ever have<br>is already here</h2>
+  <a class="btn btn--hero" href="#">Get started</a>
+</section>
+
+<footer class="site-footer"><div class="container row" style="justify-content: space-between"><span>© 2026 Lumen</span><span class="row"><a href="#">About</a><a href="#">Help</a><a href="#">Privacy</a><a href="#">Terms</a></span></div></footer>
+
+<script>
+  // segmented thumb + chip groups + plan radios
+  document.querySelectorAll('.segmented').forEach(seg => {
+    const btns = [...seg.querySelectorAll('button')];
+    btns.forEach((b, i) => b.addEventListener('click', () => { btns.forEach(x => x.setAttribute('aria-selected', x === b)); seg.style.setProperty('--i', i); }));
+  });
+  document.querySelectorAll('.hero__ctas, .band .row').forEach(g => g.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    g.querySelectorAll('button').forEach(x => { x.setAttribute('aria-pressed', x === b); if (x.classList.contains('btn--cta')) x.classList.toggle('btn--success', x === b); });
+  })));
+  document.querySelectorAll('.plans .plan-option').forEach(o => o.addEventListener('click', () => document.querySelectorAll('.plans .plan-option').forEach(x => { x.setAttribute('aria-checked', x === o); x.tabIndex = x === o ? 0 : -1; })));
+  document.querySelectorAll('.tabs').forEach(t => t.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => t.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === b)))));
+</script>
+</body>
+</html>

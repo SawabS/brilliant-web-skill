@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parabola Explorer — Lumen</title>
+<!-- Brilliant-style interactive visual: a goal, a canvas on an oat stage, physical controls with
+     semi-mono readouts, instant visual feedback, and a challenge that rewards with a correct glow. -->
+<link rel="stylesheet" href="../tokens/fonts.css">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../css/brilliant.css">
+<script src="../js/brilliant.js" defer></script>
+<style>
+  .wrap { max-width: 1100px; margin-inline: auto; padding: var(--space-10) var(--space-5) var(--space-24); display: grid; gap: var(--space-6); }
+  @media (min-width: 992px) { .wrap { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; } }
+  .head { grid-column: 1 / -1; display: flex; flex-direction: column; gap: var(--space-3); max-width: 720px; }
+  .plot { width: 100%; aspect-ratio: 4 / 3; display: block; }
+  .stage { padding: var(--space-3); min-height: 0; }
+  .panel { display: flex; flex-direction: column; gap: var(--space-5); }
+  .formula { font: var(--ts-ui-interactives-math-lg); text-align: center; padding: var(--space-4); border-radius: var(--radius-xl); background: var(--bg-secondary); }
+  .formula i { font-family: var(--font-math); }
+  .formula .a { color: var(--text-blue-primary); } .formula .b { color: var(--text-orange-primary); } .formula .c { color: var(--text-purple-primary); }
+  .goal { transition: background-color var(--dur-normal), border-color var(--dur-normal); }
+  .goal.is-hit { border-color: var(--border-green-bold); background: var(--bg-success-secondary); --border-glow-color: var(--green-500); animation: borderGlow 1.2s ease-out 1; }
+  svg text { font: var(--ts-ui-interactives-data-axis); fill: var(--text-tertiary); font-size: 12px; }
+</style>
+</head>
+<body>
+<!--ICONS:start-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2.5L5 13.5h6l-1 8 8.5-11h-6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.6 3.2 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-2.3 1-4 2.3-5.2.1 1.6.8 2.7 1.9 3.2C10.3 8.6 11 5.4 12 2.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5" stroke-linecap="round"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.4h6c0-1 .3-1.8 1-2.4a6.5 6.5 0 0 0-4-11.6z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.9l10.6-6.8a1 1 0 0 0 0-1.7L9.5 4.3A1 1 0 0 0 8 5.2z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol>
+  <symbol id="i-sigma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5H6l6 7-6 7h12"/></symbol>
+  <symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.5 4.6 2.9 7 7.5 7.5-4.6.5-7 2.9-7.5 7.5-.5-4.6-2.9-7-7.5-7.5 4.6-.5 7-2.9 7.5-7.5z"/><path d="M19 15.5c.2 1.8 1.2 2.8 3 3-1.8.2-2.8 1.2-3 3-.2-1.8-1.2-2.8-3-3 1.8-.2 2.8-1.2 3-3z"/></symbol>
+</svg>
+<!--ICONS:end-->
+<header class="app-bar"><div class="app-bar__inner"><a class="app-bar__brand" href="#">Lumen</a><div class="app-bar__actions"><button class="icon-btn" data-theme-toggle aria-label="Toggle theme"><svg viewBox="0 0 24 24"><use href="#i-moon"/></svg></button></div></div></header>
+<main class="wrap">
+  <div class="head">
+    <span class="kicker kicker--purple">Explore · Quadratics</span>
+    <h1 class="ts-display-3xl">Three numbers shape every parabola</h1>
+    <p class="ts-body-lg c-secondary">Move the sliders and watch what each number does. Then make the curve pass through the <span class="term">target point</span>.</p>
+  </div>
+
+  <div class="widget">
+    <div class="widget__head"><span class="eyebrow">Interactive</span><span class="widget__hint">Drag the sliders</span></div>
+    <div class="stage"><svg class="plot" id="plot" viewBox="0 0 400 300" role="img" aria-label="Graph of the parabola"></svg></div>
+    <div class="segmented" role="tablist" style="height: 48px; width: 100%; max-width: 360px" id="mode"><span class="segmented__thumb"></span><button role="tab" aria-selected="true" data-m="std">Standard form</button><button role="tab" aria-selected="false" data-m="vtx">Show vertex</button></div>
+  </div>
+
+  <aside class="panel">
+    <div class="formula" id="formula"></div>
+    <label class="stack" style="--stack-gap: 6px"><span class="row" style="justify-content: space-between"><span class="ts-heading-xs">a · width and direction</span><span class="readout" id="ra"></span></span><input class="slider" id="a" type="range" min="-3" max="3" step="0.1" value="1" style="--slider-fill: var(--blue-500)"></label>
+    <label class="stack" style="--stack-gap: 6px"><span class="row" style="justify-content: space-between"><span class="ts-heading-xs">b · tilt</span><span class="readout" id="rb"></span></span><input class="slider" id="b" type="range" min="-6" max="6" step="0.5" value="0" style="--slider-fill: var(--orange-500)"></label>
+    <label class="stack" style="--stack-gap: 6px"><span class="row" style="justify-content: space-between"><span class="ts-heading-xs">c · height</span><span class="readout" id="rc"></span></span><input class="slider" id="c" type="range" min="-6" max="6" step="0.5" value="-2" style="--slider-fill: var(--purple-500)"></label>
+    <div class="card card--lip goal" id="goal" style="padding: var(--space-4) var(--space-5)">
+      <div class="row" style="justify-content: space-between"><span class="ts-heading-sm">Challenge</span><span class="badge badge--solid badge--pear" id="goalBadge">Target (2, 2)</span></div>
+      <p class="ts-body-sm c-secondary" id="goalText" style="margin-top: 6px">Make the curve pass through the pear point.</p>
+    </div>
+    <div class="row"><button class="btn3d btn3d--white" id="reset"><span class="btn3d__face">Reset</span></button><button class="btn3d" id="newT"><span class="btn3d__face">New target</span></button></div>
+  </aside>
+</main>
+<script>
+  addEventListener('DOMContentLoaded', () => {
+    const $ = id => document.getElementById(id);
+    const W = 400, H = 300, X = x => W / 2 + x * 30, Y = y => H / 2 - y * 25;
+    let target = [2, 2], showV = false, hit = false;
+    function draw() {
+      const a = +$('a').value, b = +$('b').value, c = +$('c').value;
+      $('ra').textContent = a.toFixed(1); $('rb').textContent = b.toFixed(1); $('rc').textContent = c.toFixed(1);
+      const s = v => (v < 0 ? '− ' : '+ ') + Math.abs(v).toFixed(1);
+      $('formula').innerHTML = `<i>y</i> = <span class="a">${a.toFixed(1)}</span><i>x</i>² <span class="b">${s(b)}</span><i>x</i> <span class="c">${s(c)}</span>`;
+      let g = '';
+      for (let x = -6; x <= 6; x++) g += `<line x1="${X(x)}" x2="${X(x)}" y1="0" y2="${H}" stroke="var(--border-secondary)"/>`;
+      for (let y = -6; y <= 6; y++) g += `<line x1="0" x2="${W}" y1="${Y(y)}" y2="${Y(y)}" stroke="var(--border-secondary)"/>`;
+      g += `<line x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--border-gray-primary)" stroke-width="1.5"/><line x1="${X(0)}" x2="${X(0)}" y1="0" y2="${H}" stroke="var(--border-gray-primary)" stroke-width="1.5"/>`;
+      [-4, -2, 2, 4].forEach(v => { g += `<text x="${X(v)}" y="${Y(0) + 16}" text-anchor="middle">${v}</text><text x="${X(0) - 8}" y="${Y(v) + 4}" text-anchor="end">${v}</text>`; });
+      let d = ''; for (let px = 0; px <= W; px += 2) { const x = (px - W / 2) / 30, y = a * x * x + b * x + c; d += (px ? 'L' : 'M') + px + ',' + Math.max(-50, Math.min(H + 50, Y(y))).toFixed(1); }
+      g += `<path d="${d}" fill="none" stroke="var(--blue-500)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
+      if (showV && a !== 0) { const vx = -b / (2 * a), vy = a * vx * vx + b * vx + c; g += `<line x1="${X(vx)}" x2="${X(vx)}" y1="0" y2="${H}" stroke="var(--purple-400)" stroke-dasharray="6 6" stroke-width="2"/><circle cx="${X(vx)}" cy="${Y(vy)}" r="7" fill="var(--bg-primary)" stroke="var(--purple-500)" stroke-width="3"/><text x="${X(vx) + 12}" y="${Y(vy) - 10}" style="fill: var(--text-purple-primary); font-weight: 600">vertex (${vx.toFixed(1)}, ${vy.toFixed(1)})</text>`; }
+      g += `<circle cx="${X(target[0])}" cy="${Y(target[1])}" r="11" fill="var(--pear-500)" stroke="var(--pear-700)" stroke-width="3"/>`;
+      $('plot').innerHTML = g;
+      const ty = a * target[0] ** 2 + b * target[0] + c, ok = Math.abs(ty - target[1]) < 0.26;
+      $('goal').classList.toggle('is-hit', ok);
+      $('goalText').textContent = ok ? 'Correct! The curve passes through the target.' : `At x = ${target[0]} the curve is at y = ${ty.toFixed(1)}. You need ${target[1]}.`;
+      if (ok && !hit) B.sfx.correct(); hit = ok;
+    }
+    ['a', 'b', 'c'].forEach(k => $(k).addEventListener('input', draw));
+    $('mode').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { showV = b.dataset.m === 'vtx'; draw(); } });
+    $('reset').addEventListener('click', () => { $('a').value = 1; $('b').value = 0; $('c').value = -2; document.querySelectorAll('.slider').forEach(r => r.dispatchEvent(new Event('input'))); });
+    $('newT').addEventListener('click', () => { target = [Math.round(Math.random() * 6 - 3), Math.round(Math.random() * 8 - 4)]; $('goalBadge').textContent = `Target (${target[0]}, ${target[1]})`; hit = false; draw(); });
+    draw();
+  });
+</script>
+</body>
+</html>

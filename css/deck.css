@@ -1,0 +1,61 @@
+/* Brilliant design system — slide decks (16:9, authored at 1920×1080).
+ * Load after tokens + brilliant.css. Each <section class="slide"> is one slide; the deck
+ * scales to fit the window, arrows/space navigate, and printing gives one slide per page.
+ * Type scale at 1920 wide: display 120/96/72px serif · headline 40px sans · body 30px · caption 22px.
+ */
+@page { size: 1920px 1080px; margin: 0; }
+html, body { height: 100%; }
+body.deck { margin: 0; background: var(--gray-950); overflow: hidden; }
+.deck__stage { position: fixed; inset: 0; display: grid; place-items: center; }
+.slide {
+  position: absolute; width: 1920px; height: 1080px; overflow: hidden; display: none;
+  background: var(--bg-primary); color: var(--text-primary); padding: 96px 120px;
+  transform-origin: center center;
+}
+.slide.is-active { display: flex; flex-direction: column; animation: fadeIn 300ms var(--ease-standard); }
+.slide--oat { background: var(--bg-oat); }
+.slide--dark { background: var(--gray-950); color: var(--white); --text-primary: var(--white); --text-secondary: var(--white-alpha-700); --text-tertiary: var(--white-alpha-500); }
+.slide__lattice { position: absolute; inset: auto 0 0 0; height: 55%; pointer-events: none;
+  background-image: linear-gradient(30deg, transparent 48.75%, rgba(220, 210, 200, .7) 49.5%, rgba(220, 210, 200, .7) 50.5%, transparent 51.25%),
+                    linear-gradient(150deg, transparent 48.75%, rgba(220, 210, 200, .7) 49.5%, rgba(220, 210, 200, .7) 50.5%, transparent 51.25%);
+  background-size: 96px 56px; background-position: center bottom; -webkit-mask-image: linear-gradient(to top, #000 30%, transparent); mask-image: linear-gradient(to top, #000 30%, transparent); }
+.slide > * { position: relative; }
+
+.s-kicker { display: flex; align-items: center; gap: 16px; font: 700 22px/1 var(--font-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--k, var(--text-blue-primary)); }
+.s-kicker::before { content: ""; width: 40px; height: 6px; border-radius: 6px; background: currentColor; }
+.s-display-xl { font: 500 132px/1.0 var(--font-display); letter-spacing: -3px; font-optical-sizing: auto; }
+.s-display { font: 500 96px/1.04 var(--font-display); letter-spacing: -2px; font-optical-sizing: auto; }
+.s-display-sm { font: 500 72px/1.08 var(--font-display); letter-spacing: -1.4px; font-optical-sizing: auto; }
+.s-headline { font: 400 44px/1.2 var(--font-sans); letter-spacing: -.5px; }
+.s-title { font: 700 56px/1.15 var(--font-sans); letter-spacing: -.5px; }
+.s-body { font: 400 30px/1.5 var(--font-sans); color: var(--text-secondary); max-width: 30em; }
+.s-caption { font: 400 22px/1.4 var(--font-sans); color: var(--text-tertiary); }
+.s-footer { position: absolute !important; left: 120px; right: 120px; bottom: 48px; display: flex; justify-content: space-between; font: 400 20px/1 var(--font-sans); color: var(--text-tertiary); }
+
+.s-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: auto; }
+.s-stat { border: 2px solid var(--border-primary); border-radius: 44px; padding: 44px 40px; background: var(--bg-primary); }
+.s-stat__n { font: 400 88px/1 var(--font-sans); letter-spacing: -2px; font-variant-numeric: tabular-nums; color: var(--n, var(--text-primary)); }
+.s-stat__l { font: 500 28px/1.3 var(--font-sans); margin-top: 16px; }
+.s-stat__s { font: 400 22px/1.35 var(--font-sans); color: var(--text-tertiary); margin-top: 6px; }
+
+.s-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 56px; flex: 1; }
+.s-card { border-radius: 40px; padding: 48px; background: var(--c-bg, var(--bg-secondary)); display: flex; flex-direction: column; gap: 20px; }
+.s-card h3 { font: 700 40px/1.2 var(--font-sans); color: var(--c-ink, var(--text-primary)); }
+.s-card p, .s-card li { font: 400 28px/1.5 var(--font-sans); color: var(--text-secondary); }
+.s-card ul { margin: 0; padding-left: 1.1em; }
+.s-media { border-radius: 40px; overflow: hidden; background: var(--tint, var(--bg-oat)); display: flex; align-items: center; justify-content: center; }
+.s-media > svg, .s-media > img { width: 100%; height: auto; max-height: 100%; }
+/* teaching slides reuse product controls at deck scale */
+.slide .choice { font: 500 30px/1.25 var(--font-sans); min-height: 104px; border-radius: 28px; }
+.slide .btn3d { --lip: 6px; }
+.slide .btn3d__face { font: 500 30px/1.25 var(--font-sans); min-height: 88px; padding: 24px 56px; }
+
+.deck__nav { position: fixed; z-index: 10; right: 24px; bottom: 20px; display: flex; gap: 8px; align-items: center; color: var(--white-alpha-700); font: 500 14px/1 var(--font-sans); }
+.deck__nav button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--white-alpha-200); color: var(--white); cursor: pointer; }
+
+@media print {
+  body.deck { background: none; overflow: visible; }
+  .deck__stage { position: static; display: block; }
+  .slide { position: relative; display: flex !important; flex-direction: column; transform: none !important; break-after: page; animation: none !important; }
+  .deck__nav { display: none; }
+}

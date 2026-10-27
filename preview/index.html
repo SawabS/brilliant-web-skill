@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brilliant Design System — Specimen</title>
+<link rel="stylesheet" href="../tokens/fonts.css">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../css/brilliant.css">
+<style>
+  .spec-h { font: var(--ts-display-3xl); letter-spacing: var(--ts-display-3xl-ls); margin: 0 0 var(--space-3); }
+  .spec-h2 { font: var(--ts-heading-xl); margin: var(--space-16) 0 var(--space-2); }
+  .spec-sub { color: var(--text-secondary); margin-bottom: var(--space-6); max-width: 64ch; }
+  .ramp { display: grid; grid-template-columns: 90px repeat(12, 1fr); gap: 4px; align-items: center; margin-bottom: 4px; }
+  .ramp b { font: var(--ts-heading-xs); }
+  .sw { height: 44px; border-radius: var(--radius-md); position: relative; }
+  .sw span { position: absolute; left: 6px; bottom: 4px; font: 500 10px/1 var(--font-semi-mono); }
+  .roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-3); }
+  .role { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--border-primary); border-radius: var(--radius-lg); }
+  .role i { width: 36px; height: 36px; border-radius: var(--radius-md); flex: none; border: 1px solid var(--border-secondary); }
+  .role code { font: 500 12px/1.3 var(--font-code); }
+  .role small { display: block; font: var(--ts-body-xs); color: var(--text-tertiary); }
+  .type-row { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-4); align-items: baseline; padding: var(--space-3) 0; border-top: 1px solid var(--border-secondary); }
+  .type-row code { font: 500 12px/1.4 var(--font-code); color: var(--text-tertiary); }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6); }
+  .demo { padding: var(--space-6); border: 1px dashed var(--border-primary); border-radius: var(--radius-2xl); display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+  .theme-toggle { position: fixed; right: 16px; bottom: 16px; z-index: 2000; }
+</style>
+</head>
+<body>
+<header class="app-bar">
+  <div class="app-bar__inner">
+    <a class="app-bar__brand" href="#">Lumen</a>
+    <nav class="app-bar__nav"><a href="#color" aria-current="page">Foundations</a><a href="#components">Components</a><a href="#product">Product</a></nav>
+    <div class="app-bar__actions"><a class="btn btn--outline" href="#">Sign in</a><a class="btn btn--success" href="#">Sign up</a></div>
+  </div>
+</header>
+
+<main class="container" style="padding-block: var(--space-12) var(--space-24)">
+  <p class="kicker kicker--blue">Design system · captured October 2026</p>
+  <h1 class="spec-h" style="margin-top: var(--space-3)">A tutor's toolkit, in tokens</h1>
+  <p class="spec-sub ts-body-lg">The Brilliant visual language: white canvas, black ink, a serif for big ideas, a friendly sans for everything else, buttons with a physical lip, and colour that always means something.</p>
+
+  <h2 class="spec-h2" id="color">Colour ramps</h2>
+  <p class="spec-sub">Fourteen hue ramps, 50 → 950. Semantic roles (below) are what components use; reach for a ramp only for charts, illustrations and course colours.</p>
+  <div id="ramps"></div>
+
+  <h2 class="spec-h2">Semantic roles</h2>
+  <p class="spec-sub">Every role has a light and a dark value. Toggle the theme (bottom right) to see them flip.</p>
+  <div class="roles" id="roles"></div>
+
+  <h2 class="spec-h2">Type</h2>
+  <p class="spec-sub">Display styles are the serif (CoFo Robert → Source Serif 4) at weight 500. Everything else is the sans (CoFo Brilliant → Inter). Interactive readouts use a semi-mono, code uses Source Code Pro, maths uses KaTeX.</p>
+  <div id="types"></div>
+
+  <h2 class="spec-h2" id="components">Buttons</h2>
+  <p class="spec-sub">The 3D button is the product's signature: a face resting 4px above a solid lip. Press it and it sinks. Flat pills are for navigation and marketing.</p>
+  <div class="demo">
+    <button class="btn3d"><span class="btn3d__face">Continue</span></button>
+    <button class="btn3d btn3d--blue"><span class="btn3d__face">Start</span></button>
+    <button class="btn3d btn3d--green"><span class="btn3d__face">Continue</span></button>
+    <button class="btn3d btn3d--white"><span class="btn3d__face">Why?</span></button>
+    <button class="btn3d btn3d--fill"><span class="btn3d__face">Skip</span></button>
+    <button class="btn3d btn3d--oat"><span class="btn3d__face">Practice</span></button>
+    <button class="btn3d btn3d--premium btn3d--shimmer"><span class="btn3d__face">Subscribe now</span></button>
+    <button class="btn3d" disabled><span class="btn3d__face">Check</span></button>
+  </div>
+  <div class="demo" style="margin-top: var(--space-3)">
+    <button class="btn3d btn3d--purple"><span class="btn3d__face">Purple</span></button>
+    <button class="btn3d btn3d--orange"><span class="btn3d__face">Orange</span></button>
+    <button class="btn3d btn3d--teal"><span class="btn3d__face">Teal</span></button>
+    <button class="btn3d btn3d--pink"><span class="btn3d__face">Pink</span></button>
+    <button class="btn3d btn3d--yellow"><span class="btn3d__face">Yellow</span></button>
+    <button class="btn3d btn3d--pear"><span class="btn3d__face">Pear</span></button>
+    <button class="btn3d btn3d--mint"><span class="btn3d__face">Mint</span></button>
+    <button class="btn3d btn3d--red"><span class="btn3d__face">Red</span></button>
+  </div>
+  <div class="demo" style="margin-top: var(--space-3)">
+    <a class="btn btn--outline" href="#">Sign in</a>
+    <a class="btn btn--success" href="#">Sign up</a>
+    <a class="btn btn--inverse" href="#">Get the app</a>
+    <button class="btn btn--cta btn--success">I'm a learner</button>
+    <button class="btn btn--cta" aria-pressed="false">I'm a parent or teacher</button>
+  </div>
+
+  <h2 class="spec-h2">Badges, chips, switches</h2>
+  <div class="demo">
+    <span class="badge badge--solid badge--purple">Save 33%</span>
+    <span class="badge badge--solid badge--premium">Premium</span>
+    <span class="badge badge--subtle badge--blue">New</span>
+    <span class="badge badge--subtle badge--green">Completed</span>
+    <span class="badge badge--outline badge--orange">Beta</span>
+    <span class="badge badge--solid badge--primary">Level 3</span>
+    <span class="xp">+15 XP</span>
+  </div>
+  <div class="demo" style="margin-top: var(--space-3); background: var(--bg-secondary)">
+    <button class="chip" aria-pressed="true">Math</button>
+    <button class="chip" aria-pressed="false">Computer Science</button>
+    <button class="chip" aria-pressed="false">Science</button>
+    <button class="chip" aria-pressed="false">Data Analysis</button>
+  </div>
+  <div class="demo" style="margin-top: var(--space-3); flex-direction: column; align-items: stretch">
+    <div class="segmented" role="tablist" style="--n:2; --i:0">
+      <span class="segmented__thumb"></span>
+      <button role="tab" aria-selected="true">Math</button>
+      <button role="tab" aria-selected="false">Coding</button>
+    </div>
+    <div class="tabs tabs--purple" role="tablist" style="max-width: 420px; margin-inline: auto; width: 100%">
+      <button class="tab" role="tab" aria-selected="false">Monthly</button>
+      <button class="tab" role="tab" aria-selected="true">Annual <span class="badge badge--solid badge--purple">Save 33%</span></button>
+    </div>
+    <div class="row" style="justify-content: center"><input class="switch" type="checkbox" checked aria-label="Sound"><input class="check" type="checkbox" checked aria-label="Option"><input class="check" type="checkbox" aria-label="Option"></div>
+  </div>
+
+  <h2 class="spec-h2">Cards &amp; surfaces</h2>
+  <div class="grid-2">
+    <div class="card"><p class="kicker">Card</p><h3 class="ts-heading-lg" style="margin: 6px 0">2px border, radius 20</h3><p class="c-secondary">The neutral container for product UI.</p></div>
+    <a class="card card--lip" href="#"><p class="kicker">Lip card</p><h3 class="ts-heading-lg" style="margin: 6px 0">Press me</h3><p class="c-secondary">Clickable tiles sink onto a 4px lip.</p></a>
+    <div class="card card--oat"><p class="kicker">Oat</p><h3 class="ts-heading-lg" style="margin: 6px 0">Warm stage</h3><p class="c-secondary">Behind diagrams, quotes and bands.</p></div>
+    <div class="stat-tile"><div class="stat-tile__value">10 million+</div><div class="stat-tile__label">learners around the world</div></div>
+    <div class="media-panel tint-papaya"><span class="ts-display-lg">papaya</span></div>
+    <div class="media-panel tint-sage"><span class="ts-display-lg">sage</span></div>
+    <div class="iridescent-frame"><div class="plan-card"><div class="plan-card__name">Individual</div><div class="plan-card__price"><b>$12</b><span>/month</span></div></div></div>
+    <div class="hue-card hue-card--purple"><p class="kicker kicker--purple">Hue card</p><h3 class="ts-heading-lg" style="margin-top: 6px">Course gradient</h3></div>
+  </div>
+
+  <h2 class="spec-h2" id="product">Course map</h2>
+  <div class="card" style="padding-block: var(--space-12)">
+    <div style="max-width: 392px; margin-inline: auto; padding-inline: 16px">
+      <button class="level-header level-header--current"><span class="level-header__kicker">Level 1</span><span class="level-header__title">Order logic</span></button>
+    </div>
+    <div class="path" style="margin-block: var(--space-10)">
+      <div class="path__row"><button class="path__item" aria-current="step"><span class="node node--current hue-blue"><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-play"/></svg></span><span class="path__label">Neighbours</span></button></div>
+      <div class="path__row"><button class="path__item"><span class="node node--done hue-green"><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="path__label">Heights</span></button></div>
+      <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Comparisons</span></button></div>
+      <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Between</span></button></div>
+      <div class="path__row"><button class="path__item"><span class="node node--review"></span><span class="path__label">Level review</span></button></div>
+    </div>
+    <div style="max-width: 392px; margin-inline: auto; padding-inline: 16px">
+      <button class="level-header"><span class="level-header__kicker">Level 2</span><span class="level-header__title">Negation</span></button>
+    </div>
+  </div>
+
+  <h2 class="spec-h2">Lesson pieces</h2>
+  <div class="grid-2">
+    <div class="stack">
+      <div class="row"><button class="icon-btn" aria-label="Close"><svg viewBox="0 0 24 24"><use href="#i-x"/></svg></button>
+        <div class="steps"><span class="steps__seg steps__seg--correct"></span><span class="steps__seg steps__seg--correct"></span><span class="steps__seg steps__seg--incorrect"></span><span class="steps__seg steps__seg--current"></span><span class="steps__seg"></span><span class="steps__seg"></span></div></div>
+      <div class="lesson-content lesson-content--lg"><p>Which tile is <strong>heavier</strong>? Drag the slider to compare.</p></div>
+      <div class="choices choices--2">
+        <button class="choice" aria-pressed="true">Tile A</button>
+        <button class="choice">Tile B</button>
+        <button class="choice" data-state="correct">Equal</button>
+        <button class="choice" data-state="incorrect">Can't tell</button>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="stage"><div style="width: 100%"><label class="row" style="justify-content: space-between"><span class="ts-heading-xs">Weight of A</span><span class="readout">12.5 kg</span></label><input class="slider" type="range" value="62" style="--value: 62%" oninput="this.style.setProperty('--value', this.value + '%')"></div></div>
+      <div class="progress progress--lg"><div class="progress__fill" style="--value: 64%"></div></div>
+      <div class="row"><div class="streak"><span class="streak__day streak__day--done">M</span><span class="streak__day streak__day--done">T</span><span class="streak__day streak__day--done streak__day--today">W</span><span class="streak__day">T</span><span class="streak__day">F</span></div></div>
+    </div>
+  </div>
+  <div style="position: relative; height: 210px; margin-top: var(--space-6); border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--border-primary)">
+    <div class="feedback feedback--correct" style="position: absolute">
+      <div class="feedback__inner">
+        <div class="feedback__title"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Correct!</div>
+        <div class="feedback__actions"><button class="btn3d btn3d--white"><span class="btn3d__face">Why?</span></button><button class="btn3d btn3d--green"><span class="btn3d__face">Continue</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="spec-h2">Content blocks</h2>
+  <div class="grid-2">
+<pre class="code"><span class="c"># count the swaps bubble sort makes</span>
+<span class="k">def</span> <span class="d">swaps</span>(xs):
+    n = <span class="n">0</span>
+    <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(xs)):
+        <span class="k">for</span> j <span class="k">in</span> <span class="f">range</span>(<span class="f">len</span>(xs) - i - <span class="n">1</span>):
+            <span class="k">if</span> xs[j] &gt; xs[j + <span class="n">1</span>]:
+                xs[j], xs[j + <span class="n">1</span>] = xs[j + <span class="n">1</span>], xs[j]
+                n += <span class="n">1</span>
+    <span class="k">return</span> n  <span class="c"># "done"</span></pre>
+    <div class="stack">
+      <div class="callout"><div class="callout__title"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg>Note</div><p>Tertiary tint, primary-ink title, black body.</p></div>
+      <div class="callout callout--green"><div class="callout__title"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Done</div><p>Training complete, 240 of 240.</p></div>
+      <div class="callout callout--yellow"><div class="callout__title"><svg viewBox="0 0 24 24"><use href="#i-alert"/></svg>Caveat</div><p>Numbers are medians across eight sizes.</p></div>
+    </div>
+  </div>
+  <div class="table-wrap" style="margin-top: var(--space-6)">
+    <table class="table"><thead><tr><th>Course</th><th>Level</th><th class="num">Lessons</th><th class="num">Completion</th></tr></thead>
+    <tbody><tr><td>Logic</td><td><span class="badge badge--subtle badge--blue">Foundational</span></td><td class="num">26</td><td class="num">81%</td></tr>
+    <tr><td>Probability</td><td><span class="badge badge--subtle badge--purple">Intermediate</span></td><td class="num">31</td><td class="num">64%</td></tr>
+    <tr><td>Python</td><td><span class="badge badge--subtle badge--orange">Applied</span></td><td class="num">42</td><td class="num">57%</td></tr></tbody></table>
+  </div>
+  <div class="grid-2" style="margin-top: var(--space-6)">
+    <div class="field"><label class="field__label" for="em">Email</label><input class="input" id="em" placeholder="you@example.com"><span class="field__hint">We'll send your progress report here.</span></div>
+    <div class="field"><label class="field__label" for="ans">Your answer</label><input class="input input--answer" id="ans" value="42"></div>
+  </div>
+  <div class="row" style="margin-top: var(--space-6)"><span class="toast"><svg viewBox="0 0 24 24" width="18" height="18"><use href="#i-check"/></svg>Saved to your plan</span><span class="tooltip">Tooltips use inverse secondary</span><div class="skeleton" style="width: 200px; height: 48px"></div></div>
+</main>
+
+<button class="btn3d btn3d--white theme-toggle" onclick="const h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark'"><span class="btn3d__face">Theme</span></button>
+
+<!--ICONS:start-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2.5L5 13.5h6l-1 8 8.5-11h-6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.6 3.2 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-2.3 1-4 2.3-5.2.1 1.6.8 2.7 1.9 3.2C10.3 8.6 11 5.4 12 2.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5" stroke-linecap="round"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.4h6c0-1 .3-1.8 1-2.4a6.5 6.5 0 0 0-4-11.6z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.9l10.6-6.8a1 1 0 0 0 0-1.7L9.5 4.3A1 1 0 0 0 8 5.2z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol>
+  <symbol id="i-sigma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5H6l6 7-6 7h12"/></symbol>
+  <symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.5 4.6 2.9 7 7.5 7.5-4.6.5-7 2.9-7.5 7.5-.5-4.6-2.9-7-7.5-7.5 4.6-.5 7-2.9 7.5-7.5z"/><path d="M19 15.5c.2 1.8 1.2 2.8 3 3-1.8.2-2.8 1.2-3 3-.2-1.8-1.2-2.8-3-3 1.8-.2 2.8-1.2 3-3z"/></symbol>
+</svg>
+<!--ICONS:end-->
+<script>
+  const ramps = ["gray","blue","green","yellow","orange","red","pink","purple","teal","mint","cyan","pear","papaya"];
+  const steps = ["50","100","200","300","400","500","600","700","800","900","950"];
+  const cs = getComputedStyle(document.documentElement);
+  const lum = h => { const c = h.replace('#','').slice(0,6).match(/../g).map(x => parseInt(x,16)/255).map(v => v <= .03928 ? v/12.92 : ((v+.055)/1.055)**2.4); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
+  document.getElementById('ramps').innerHTML = ramps.map(r => `<div class="ramp"><b>${r}</b>${steps.map(s => { const v = cs.getPropertyValue(`--${r}-${s}`).trim(); return v ? `<div class="sw" style="background:${v}" title="--${r}-${s} ${v}"><span style="color:${lum(v) > .4 ? '#000' : '#fff'}">${s}</span></div>` : '<div></div>'; }).join('')}</div>`).join('');
+  const roles = [["bg-primary","canvas"],["bg-secondary","quiet fill"],["bg-oat","warm stage"],["bg-inverse-primary","inverse"],["bg-inverse-secondary","primary CTA face"],["bg-success-primary","success / sign-up"],["bg-blue-primary","course action"],["bg-blue-tertiary","selection tint"],["text-primary","ink"],["text-secondary","body copy"],["text-tertiary","captions"],["text-link","links"],["border-primary","card border"],["border-solid","lip / choice"],["border-select","focus & selection"],["border-oat","oat hairline"],["special-lesson-feedback-correct","correct glow"],["special-lesson-feedback-incorrect","incorrect glow"],["special-lesson-feedback-retryable","retry glow"],["special-endstate-streak-counter","streak / XP"]];
+  document.getElementById('roles').innerHTML = roles.map(([n, d]) => `<div class="role"><i style="background:var(--${n})"></i><div><code>--${n}</code><small>${d}</small></div></div>`).join('');
+  const types = ["display-6xl","display-5xl","display-4xl","display-3xl","display-2xl","display-xl","display-lg","headline-xl","heading-4xl","heading-3xl","heading-2xl","heading-xl","heading-lg","heading-md","heading-sm","heading-xs","body-lg","body-base","body-sm","body-xs","ui-actions-xl","ui-actions-lg","ui-actions-base","ui-actions-sm","ui-nav-default","ui-interactives-semiMono-lg","ui-interactives-code-base","ui-interactives-math-base"];
+  document.getElementById('types').innerHTML = types.map(t => `<div class="type-row"><code>.ts-${t}<br>${cs.getPropertyValue('--ts-'+t).trim().replace(/"CoFo ([\w ]+)".*$/,'· CoFo $1')}</code><div class="ts-${t}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${t.startsWith('ui-actions-sm') ? 'Save 33%' : t.includes('code') ? 'for i in range(n):' : t.includes('math') ? 'f(x) = x² + 1' : t.includes('semiMono') ? '12.50 kg' : 'Learn by doing'}</div></div>`).join('');
+</script>
+</body>
+</html>

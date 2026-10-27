@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 240" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">
+  <g stroke="#e5e5e5"><line x1="40" x2="470" y1="20" y2="20"/><line x1="40" x2="470" y1="70" y2="70"/><line x1="40" x2="470" y1="120" y2="120"/><line x1="40" x2="470" y1="170" y2="170"/></g>
+  <line x1="40" x2="470" y1="210" y2="210" stroke="#b3b3b3"/>
+  <g fill="#00000099" text-anchor="end"><text x="32" y="214">0</text><text x="32" y="174">0.2</text><text x="32" y="124">0.4</text><text x="32" y="74">0.6</text></g>
+  <g fill="#00000099" text-anchor="middle"><text x="70" y="230">8K</text><text x="130" y="230">16K</text><text x="190" y="230">32K</text><text x="250" y="230">48K</text><text x="310" y="230">64K</text><text x="370" y="230">128K</text><text x="440" y="230">256K</text></g>
+  <polyline fill="none" stroke="#456dff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="70,80 130,62 190,70 250,82 310,92 370,112 440,128"/>
+  <polyline fill="none" stroke="#ff8d23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="70,118 130,110 190,114 250,122 310,128 370,140 440,150"/>
+  <circle cx="440" cy="128" r="4.5" fill="#fff" stroke="#456dff" stroke-width="3"/><circle cx="440" cy="150" r="4.5" fill="#fff" stroke="#ff8d23" stroke-width="3"/>
+  <text x="452" y="132" fill="#294bc6" font-weight="500">Unigram</text><text x="452" y="154" fill="#a55307" font-weight="500">BPE</text>
+</svg>

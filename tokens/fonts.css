@@ -1,0 +1,32 @@
+/* Fonts for the Brilliant design system.
+ *
+ * Brilliant ships three licensed faces from Contrast Foundry — CoFo Brilliant
+ * (UI/body sans), CoFo Robert (display serif, weight 500 only) and CoFo Semi
+ * Mono (interactive readouts) — plus open-source Source Code Pro and KaTeX.
+ * The CoFo faces are commercial and are NOT included here. The stacks in
+ * tokens.css put them first, so if you hold a licence, declare them with
+ * @font-face (names below) and they win automatically. Otherwise these open
+ * substitutes load from Google Fonts:
+ *
+ *   CoFo Brilliant  -> Inter            (metrics: CoFo is ~105% of Arial, Inter ~107%)
+ *   CoFo Robert     -> Source Serif 4   (use weight 500, optical size on, tight tracking)
+ *   CoFo Semi Mono  -> DM Mono
+ *   Source Code Pro -> Source Code Pro  (exact; it is open source)
+ *   KaTeX_Main      -> KaTeX            (exact; load katex.min.css when you render maths)
+ *
+ * Offline (PDF rendering without network) the stacks fall back to Helvetica/
+ * Arial, Georgia and the system monospace, which keeps layout close.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=DM+Mono:wght@400;500&family=Source+Code+Pro:wght@400;500;700&display=swap");
+
+/* If licensed, uncomment and point at your files:
+@font-face { font-family: "CoFo Brilliant"; src: url(cofo_brilliant_regular.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "CoFo Brilliant"; src: url(cofo_brilliant_medium.woff2)  format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "CoFo Brilliant"; src: url(cofo_brilliant_bold.woff2)    format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "CoFo Robert";    src: url(cofo_robert_medium.woff2)     format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "CoFo Semi Mono"; src: url(cofo_semi_mono_regular.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+*/
+
+/* The display serif substitute needs optical sizing to look right at 50-76px. */
+.ts-display-lg, .ts-display-xl, .ts-display-2xl, .ts-display-3xl,
+.ts-display-4xl, .ts-display-5xl, .ts-display-6xl { font-optical-sizing: auto; font-kerning: normal; }

@@ -83,8 +83,31 @@ Radius 54px, 2px transparent border, `ui.actions.base`, height 48px, padding 0 2
 
 - **Course card** `.course-card` (measured): sticky at `top: 41px` on ≥992, 2px border, radius 20, padding 32, gap 16, max-width 487; 100px art, title `heading.lg`, description `body.base` secondary, meta row `body.sm` with 16px icons, then progress.
 - **Level header** `.level-header` (measured): a button h64, radius 18, on an underlay that adds a 2px ring and a 4px lip in the level colour (current = blue-400 with a blue-700 "LEVEL 1" kicker; others gray-200 with a tertiary kicker; done = green-400). Pressing moves it down 4px.
-- **Path** `.path` (measured): 392px column, 30px gap, rows alternate centre → left → centre → right. Labels 138px wide, `body.base`, tertiary when locked, primary when current, clamp 3 lines.
-- **Node** `.node` (reconstructed geometry, measured greys): an isometric coin, face over a darker edge with a light inner rim. Locked = gray-200/gray-400; `--current` = hue-500/700 with `floatyNudge`; `--done` = hue-400/600 with a `.node__tick`; `--review` = scalloped badge for level reviews. Hue via `.hue-<name>`. Hover dims (`brightness(.95)`, Brilliant uses .9). A `.start-bubble` floats above the current node.
+- **Path** `.path` (measured): 392px column, rows 30px apart, each row a 128×134 node plus a 138px label (`body.base`, 29.5px bottom padding, tertiary when locked, primary when current, clamp 3 lines). The horizontal rhythm is **global across levels** — centre → start → centre → end, repeating — and the first row of every level gets 45px extra top margin. `B.layoutPath()` (run by `B.wire()`) applies `.path__row--center|start|end` and `.path__row--level-start`; on brilliant.org the header-to-first-node gap is ≈120px and node-to-node ≈164px.
+
+### Lesson node `.lesson-node` (measured from brilliant.org's SVG, redrawn)
+
+A lesson is an **isometric plate**, not a circle. `js/brilliant.js` renders every `.lesson-node` into an inline SVG (viewBox 186×195, displayed 128×134):
+
+| Layer | Geometry (viewBox units) | Colour var | Locked (light) |
+|---|---|---|---|
+| Base (the plate's side) | ellipse cx 93, cy 135.15, rx 67, ry 39.75 | `--nb` | #999999 |
+| Front facet (light catching the near side) | triangle (93,88) (23,182.3) (163,182.3) clipped to the base | `--nfacet` | white 20% |
+| Top plate | ellipse cy 126.3, rx 54, ry 32.4 (8.85 above the base) | `--nf` = base + 75% white | #E5E5E5 |
+| Split progress ring | circle centre (93,126.3), outer rx 43.7 / inner 33.6, squashed ×0.5732, one arc per segment, ≈6-unit gaps centred top and bottom | `--nr` = base + 50% white; filled arcs `--np` | #CCCCCC |
+
+- **States** (`data-state`): `locked` (grey, above), `current` (course hue 500 base, hue 700 filled arcs, gentle `floatyNudge` float, a `.start-bubble` "Start" above), `done` (hue 500/600, all arcs filled). Hue with `data-hue` = blue · green · purple · orange · teal · pink · papaya · mint. Dark theme locked: base #2b2b2b, plate #4c4c4c, ring #666, facet white 6%.
+- **Progress** (`data-segments`, default 2; `data-progress`, default 0, or all when done) fills ring arcs in the hue's dark step.
+- **Review** (`data-shape="review"`): the plate is an 8-point star (viewBox 120×117) with rounded joins, same layers and ring (rx 26.5).
+- **Glyph** (`data-icon="#i-…"`) optional, centred on the plate. **Beam** (`data-beam="120"`) adds a fading extrusion under the plate for hero/OG art; it starts on the base's widest line so the plate covers its top corners.
+- Hover dims with `filter: brightness(.9)` (Brilliant's value). All colours are set through `style` (not `fill="var()"`, which Firefox ignores in SVG attributes), so they theme with CSS.
+- Never draw a node with CSS circles, borders or emoji. In JS-free contexts (decks, docs, Figma) paste the static SVG:
+
+```html
+<svg viewBox="0 0 186 195" width="128" height="134" aria-hidden="true"><defs><clipPath id="ln-a"><ellipse cx="93" cy="135.15" rx="67" ry="39.75"/></clipPath></defs><ellipse cx="93" cy="135.15" rx="67" ry="39.75" style="fill: #999999"/><path d="M93 88 L23 182.3 H163 Z" style="fill: rgba(255,255,255,.2)" clip-path="url(#ln-a)"/><ellipse cx="93" cy="126.3" rx="54" ry="32.4" style="fill: #E5E5E5"/><g transform="translate(93 126.3) scale(1 0.573)"><circle r="38.65" fill="none" pathLength="100" style="stroke: #CCCCCC" stroke-width="10.1" stroke-dasharray="47.529 2.470" stroke-dashoffset="23.764"/></g></svg>
+```
+
+Or call `B.node({ shape: 'lesson'|'review', segments, progress, icon, beam })` for the SVG string.
 
 ## Lesson player
 

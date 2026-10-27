@@ -31,7 +31,7 @@ SEMANTIC_DROP = ("quip", "tutor", "upsell", "sale", "video-ad", "iridescent-seco
 
 FONT_STACKS = {
     "brilliant": '"CoFo Brilliant", "Inter", "Helvetica Neue", Arial, system-ui, sans-serif',
-    "robert": '"CoFo Robert", "Source Serif 4", "Newsreader", Georgia, serif',
+    "robert": '"CoFo Robert", "Besley Display", "Besley", Georgia, serif',
     "semi-mono": '"CoFo Semi Mono", "DM Mono", "IBM Plex Mono", ui-monospace, monospace',
     "code": '"Source Code Pro", ui-monospace, "SFMono-Regular", Menlo, monospace',
     "math": 'KaTeX_Main, "Latin Modern Roman", "Times New Roman", serif',

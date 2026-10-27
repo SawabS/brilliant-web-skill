@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../tokens/fonts.css">
 <link rel="stylesheet" href="../tokens/tokens.css">
 <link rel="stylesheet" href="../css/brilliant.css">
+<script src="../js/brilliant.js" defer></script>
 <style>
   .spec-h { font: var(--ts-display-3xl); letter-spacing: var(--ts-display-3xl-ls); margin: 0 0 var(--space-3); }
   .spec-h2 { font: var(--ts-heading-xl); margin: var(--space-16) 0 var(--space-2); }
@@ -50,7 +51,7 @@
   <div class="roles" id="roles"></div>
 
   <h2 class="spec-h2">Type</h2>
-  <p class="spec-sub">Display styles are the serif (CoFo Robert → Source Serif 4) at weight 500. Everything else is the sans (CoFo Brilliant → Inter). Interactive readouts use a semi-mono, code uses Source Code Pro, maths uses KaTeX.</p>
+  <p class="spec-sub">Display styles are the serif (CoFo Robert → Besley, a Clarendon) at weight 500. Everything else is the sans (CoFo Brilliant → Inter). Interactive readouts use a semi-mono, code uses Source Code Pro, maths uses KaTeX.</p>
   <div id="types"></div>
 
   <h2 class="spec-h2" id="components">Buttons</h2>
@@ -130,11 +131,11 @@
       <button class="level-header level-header--current"><span class="level-header__kicker">Level 1</span><span class="level-header__title">Order logic</span></button>
     </div>
     <div class="path" style="margin-block: var(--space-10)">
-      <div class="path__row"><button class="path__item" aria-current="step"><span class="node node--current hue-blue"><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-play"/></svg></span><span class="path__label">Neighbours</span></button></div>
-      <div class="path__row"><button class="path__item"><span class="node node--done hue-green"><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="path__label">Heights</span></button></div>
-      <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Comparisons</span></button></div>
-      <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Between</span></button></div>
-      <div class="path__row"><button class="path__item"><span class="node node--review"></span><span class="path__label">Level review</span></button></div>
+      <div class="path__row"><button class="path__item" aria-current="step"><span class="start-bubble">Start</span><span class="lesson-node" data-state="current" data-hue="blue" data-progress="1"></span><span class="path__label"><span>Neighbours</span></span></button></div>
+      <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="done" data-hue="green"></span><span class="path__label"><span>Heights</span></span></button></div>
+      <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked"></span><span class="path__label"><span>Comparisons</span></span></button></div>
+      <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked"></span><span class="path__label"><span>Between</span></span></button></div>
+      <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked" data-shape="review"></span><span class="path__label"><span>Level review</span></span></button></div>
     </div>
     <div style="max-width: 392px; margin-inline: auto; padding-inline: 16px">
       <button class="level-header"><span class="level-header__kicker">Level 2</span><span class="level-header__title">Negation</span></button>

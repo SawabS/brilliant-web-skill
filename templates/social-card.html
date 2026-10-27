@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-theme-locked>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1200">
+<title>Social Card — Lumen</title>
+<!-- Brilliant-style Open Graph / social card, 1200×630, mirroring brilliant.org's own OG art:
+     oat field + full isometric lattice, a single object mark, the promise centred in the display
+     serif with the key words in italic, a muted wordmark. Export: tools/export_vector.py (SVG) or a
+     1200×630 Playwright screenshot (PNG). Replace the mark and wordmark with your own. -->
+<link rel="stylesheet" href="../tokens/fonts.css">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../css/brilliant.css">
+<script src="../js/brilliant.js" defer></script>
+<style>
+  html, body { margin: 0; }
+  .og { position: relative; width: 1200px; height: 630px; overflow: hidden; background: var(--oat-50); display: flex; flex-direction: column; align-items: center; }
+  .og__lattice { position: absolute; inset: 0; background: var(--lattice-field) center bottom / 2400px 1080px no-repeat; }
+  .og__mark { position: relative; margin-top: 8px; width: 190px; height: 199px; }
+  .og__mark .lesson-node { width: 190px; height: 199px; }
+  .og__title { position: relative; margin-top: 46px; font: 500 76px/1.06 var(--font-display); letter-spacing: -1.4px; text-align: center; color: var(--black); }
+  .og__title em { font-style: italic; }
+  .og__brand { position: absolute; bottom: 74px; font: 600 34px/1 var(--font-sans); letter-spacing: -.5px; color: var(--gray-700); }
+</style>
+</head>
+<body>
+<div class="og">
+  <div class="og__lattice"></div>
+  <div class="og__mark"><span class="lesson-node" data-state="current" data-hue="green" data-progress="2" data-beam="120" style="--nb: var(--mint-600); --nbeam: var(--green-200);"></span></div>
+  <h1 class="og__title">Your personal tutor for<br><em>maths</em> and <em>code</em></h1>
+  <div class="og__brand">Lumen</div>
+</div>
+<script>addEventListener('DOMContentLoaded', () => document.querySelectorAll('.lesson-node svg').forEach(s => s.style.animation = 'none'));</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>Brilliant Design System — Poster</title>
+<!-- README poster. Exported to preview/svg/poster-{light,dark}.svg with tools/export_vector.py. -->
+<link rel="stylesheet" href="../tokens/fonts.css">
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../css/brilliant.css">
+<script src="../js/brilliant.js" defer></script>
+<style>
+  body { width: 1280px; margin: 0; }
+  .poster { width: 1280px; background: var(--bg-primary); }
+  .top { position: relative; background: var(--bg-oat); padding: 64px 72px 56px; overflow: hidden; }
+  .top .hero__pattern { height: 440px; }
+  .top__grid { position: relative; display: grid; grid-template-columns: 1fr 420px; gap: 48px; align-items: end; }
+  .top h1 { font: var(--ts-display-6xl); letter-spacing: var(--ts-display-6xl-ls); margin: 18px 0 18px; }
+  .top p { font: var(--ts-body-lg); color: var(--text-secondary); max-width: 560px; }
+  .ctas { display: flex; gap: 12px; margin-top: 28px; align-items: center; }
+  .mini-path { position: relative; display: flex; flex-direction: column; gap: 6px; }
+  .mini-path .path__row { display: flex; }
+  .mini-path .lesson-node { width: 112px; height: 117px; }
+  .mini-path .path__label { width: 120px; height: 50px; padding-bottom: 26px; }
+  .body { padding: 48px 72px 64px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px 56px; }
+  .k { font: var(--ts-ui-actions-sm); letter-spacing: var(--ts-ui-actions-sm-ls); text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 14px; }
+  .sw { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .sw div { height: 64px; border-radius: 14px; position: relative; }
+  .sw span { position: absolute; left: 8px; bottom: 7px; font: 500 10.5px/1 var(--font-semi-mono); }
+  .ramp { display: grid; grid-template-columns: repeat(11, 1fr); gap: 3px; margin-top: 8px; }
+  .ramp i { height: 18px; border-radius: 5px; }
+  .types { display: flex; flex-direction: column; gap: 10px; }
+  .types .row2 { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-top: 1px solid var(--border-secondary); padding-top: 10px; }
+  .types code { font: 500 11px/1 var(--font-code); color: var(--text-tertiary); white-space: nowrap; }
+  .comp { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 24px; align-items: start; }
+  .tile { border: 2px solid var(--border-primary); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .fb { position: relative; height: 150px; border-radius: 20px; overflow: hidden; border: 2px solid var(--border-primary); }
+  .fb .feedback { position: absolute; animation: none; padding: 28px 20px 18px; }
+</style>
+</head>
+<body>
+<!--ICONS:start-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2.5L5 13.5h6l-1 8 8.5-11h-6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.6 3.2 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-2.3 1-4 2.3-5.2.1 1.6.8 2.7 1.9 3.2C10.3 8.6 11 5.4 12 2.5z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5" stroke-linecap="round"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.4h6c0-1 .3-1.8 1-2.4a6.5 6.5 0 0 0-4-11.6z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.9l10.6-6.8a1 1 0 0 0 0-1.7L9.5 4.3A1 1 0 0 0 8 5.2z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></symbol>
+  <symbol id="i-sigma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5H6l6 7-6 7h12"/></symbol>
+  <symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.5 4.6 2.9 7 7.5 7.5-4.6.5-7 2.9-7.5 7.5-.5-4.6-2.9-7-7.5-7.5 4.6-.5 7-2.9 7.5-7.5z"/><path d="M19 15.5c.2 1.8 1.2 2.8 3 3-1.8.2-2.8 1.2-3 3-.2-1.8-1.2-2.8-3-3 1.8-.2 2.8-1.2 3-3z"/></symbol>
+</svg>
+<!--ICONS:end-->
+<div class="poster">
+  <section class="top">
+    <div class="hero__pattern" aria-hidden="true"></div>
+    <div class="top__grid">
+      <div>
+        <span class="kicker kicker--blue">Design system · captured from brilliant.org</span>
+        <h1>Learn by <em>doing</em>,<br>in tokens</h1>
+        <p>Every colour, type style, radius, shadow and animation from production — plus the lip-pressed buttons, lesson plates and course map, ready for web apps, documents, decks and interactives.</p>
+        <div class="ctas">
+          <span class="btn3d"><span class="btn3d__face">Continue</span></span>
+          <span class="btn3d btn3d--blue"><span class="btn3d__face">Start</span></span>
+          <span class="btn3d btn3d--green"><span class="btn3d__face">Correct!</span></span>
+          <span class="btn3d btn3d--white"><span class="btn3d__face">Why?</span></span>
+          <span class="btn btn--success" style="margin-left: 8px">Sign up</span>
+        </div>
+      </div>
+      <div class="mini-path">
+        <div class="path__row path__row--center"><span class="path__item"><span class="lesson-node" data-state="done" data-hue="blue"></span><span class="path__label"><span>Order logic</span></span></span></div>
+        <div class="path__row path__row--start"><span class="path__item" aria-current="step"><span class="start-bubble" style="left: 56px; top: 14px">Start</span><span class="lesson-node" data-state="current" data-hue="blue" data-progress="1"></span><span class="path__label"><span>Heights</span></span></span></div>
+        <div class="path__row path__row--center"><span class="path__item"><span class="lesson-node"></span><span class="path__label"><span>Comparisons</span></span></span></div>
+        <div class="path__row path__row--end"><span class="path__item"><span class="lesson-node" data-shape="review"></span><span class="path__label"><span>Level review</span></span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="body">
+    <div>
+      <div class="k">Colour roles</div>
+      <div class="sw">
+        <div style="background: var(--bg-primary); box-shadow: inset 0 0 0 1px var(--border-primary)"><span>bg</span></div>
+        <div style="background: var(--bg-oat)"><span>oat</span></div>
+        <div style="background: var(--bg-inverse-secondary)"><span style="color: var(--text-inverse)">cta</span></div>
+        <div style="background: var(--blue-500)"><span style="color: #fff">blue</span></div>
+        <div style="background: var(--green-500)"><span style="color: #fff">green</span></div>
+        <div style="background: var(--pear-500)"><span>pear</span></div>
+        <div style="background: var(--purple-500)"><span style="color: #fff">purple</span></div>
+      </div>
+      <div id="ramps" style="margin-top: 16px"></div>
+    </div>
+    <div class="types">
+      <div class="k">Type</div>
+      <div class="row2"><span class="ts-display-4xl">Big <em>ideas</em></span><code>display · Besley → CoFo Robert</code></div>
+      <div class="row2"><span class="ts-heading-xl">Heading 30 / 700</span><code>heading · Inter → CoFo Brilliant</code></div>
+      <div class="row2"><span class="ts-body-lg c-secondary">Body copy reads at 16–20px.</span><code>body</code></div>
+      <div class="row2"><span class="readout readout--lg">12.50 kg</span><code>semi-mono readout</code></div>
+      <div class="row2"><span class="badge badge--solid badge--purple">Save 33%</span><span class="xp">+15 XP</span><span class="badge badge--subtle badge--green">Completed</span><span class="badge badge--outline badge--orange">Beta</span><code>ui.actions.sm</code></div>
+    </div>
+    <div class="comp">
+      <div class="tile">
+        <div class="k" style="margin: 0">Lesson</div>
+        <div class="steps"><span class="steps__seg steps__seg--correct"></span><span class="steps__seg steps__seg--correct"></span><span class="steps__seg steps__seg--current" style="--f: .5"></span><span class="steps__seg"></span></div>
+        <div class="choices choices--2"><span class="choice" aria-checked="true">Bo</span><span class="choice">Ada</span><span class="choice" data-state="correct" style="animation: none">Cy</span><span class="choice" data-state="incorrect" style="animation: none">None</span></div>
+      </div>
+      <div class="fb"><div class="feedback feedback--correct"><div class="feedback__inner"><div class="feedback__title"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg>Correct!</div><div class="feedback__actions"><span class="btn3d btn3d--white"><span class="btn3d__face">Why?</span></span><span class="btn3d btn3d--green"><span class="btn3d__face">Continue</span></span></div></div></div></div>
+      <div class="tile" style="gap: 10px">
+        <div class="k" style="margin: 0">Course</div>
+        <span class="level-header level-header--current" style="height: 56px"><span class="level-header__kicker">Level 1</span><span class="level-header__title">Order logic</span></span>
+        <div class="segmented" style="--n: 2; --i: 0; height: 48px; width: 100%; margin-top: 10px"><span class="segmented__thumb"></span><button aria-selected="true">Math</button><button aria-selected="false">Coding</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  addEventListener('DOMContentLoaded', () => {
+    const cs = getComputedStyle(document.documentElement);
+    document.getElementById('ramps').innerHTML = ['blue', 'green', 'purple', 'orange', 'pink', 'teal', 'yellow', 'pear'].map(r =>
+      `<div class="ramp">${['50','100','200','300','400','500','600','700','800','900','950'].map(s => `<i style="background: var(--${r}-${s})"></i>`).join('')}</div>`).join('');
+  });
+</script>
+</body>
+</html>

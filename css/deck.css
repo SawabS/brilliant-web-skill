@@ -15,10 +15,7 @@ body.deck { margin: 0; background: var(--gray-950); overflow: hidden; }
 .slide.is-active { display: flex; flex-direction: column; animation: fadeIn 300ms var(--ease-standard); }
 .slide--oat { background: var(--bg-oat); }
 .slide--dark { background: var(--gray-950); color: var(--white); --text-primary: var(--white); --text-secondary: var(--white-alpha-700); --text-tertiary: var(--white-alpha-500); }
-.slide__lattice { position: absolute; inset: auto 0 0 0; height: 55%; pointer-events: none;
-  background-image: linear-gradient(30deg, transparent 48.75%, rgba(220, 210, 200, .7) 49.5%, rgba(220, 210, 200, .7) 50.5%, transparent 51.25%),
-                    linear-gradient(150deg, transparent 48.75%, rgba(220, 210, 200, .7) 49.5%, rgba(220, 210, 200, .7) 50.5%, transparent 51.25%);
-  background-size: 96px 56px; background-position: center bottom; -webkit-mask-image: linear-gradient(to top, #000 30%, transparent); mask-image: linear-gradient(to top, #000 30%, transparent); }
+.slide__lattice { position: absolute; inset: 0; pointer-events: none; background: var(--lattice-field) center bottom / 2400px 1080px no-repeat; }
 .slide > * { position: relative; }
 
 .s-kicker { display: flex; align-items: center; gap: 16px; font: 700 22px/1 var(--font-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--k, var(--text-blue-primary)); }

@@ -94,14 +94,14 @@
       const s = v => (v < 0 ? '− ' : '+ ') + Math.abs(v).toFixed(1);
       $('formula').innerHTML = `<i>y</i> = <span class="a">${a.toFixed(1)}</span><i>x</i>² <span class="b">${s(b)}</span><i>x</i> <span class="c">${s(c)}</span>`;
       let g = '';
-      for (let x = -6; x <= 6; x++) g += `<line x1="${X(x)}" x2="${X(x)}" y1="0" y2="${H}" stroke="var(--border-secondary)"/>`;
-      for (let y = -6; y <= 6; y++) g += `<line x1="0" x2="${W}" y1="${Y(y)}" y2="${Y(y)}" stroke="var(--border-secondary)"/>`;
-      g += `<line x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--border-gray-primary)" stroke-width="1.5"/><line x1="${X(0)}" x2="${X(0)}" y1="0" y2="${H}" stroke="var(--border-gray-primary)" stroke-width="1.5"/>`;
+      for (let x = -6; x <= 6; x++) g += `<line x1="${X(x)}" x2="${X(x)}" y1="0" y2="${H}" style="stroke: var(--border-secondary)"/>`;
+      for (let y = -6; y <= 6; y++) g += `<line x1="0" x2="${W}" y1="${Y(y)}" y2="${Y(y)}" style="stroke: var(--border-secondary)"/>`;
+      g += `<line x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}" stroke-width="1.5" style="stroke: var(--border-gray-primary)"/><line x1="${X(0)}" x2="${X(0)}" y1="0" y2="${H}" stroke-width="1.5" style="stroke: var(--border-gray-primary)"/>`;
       [-4, -2, 2, 4].forEach(v => { g += `<text x="${X(v)}" y="${Y(0) + 16}" text-anchor="middle">${v}</text><text x="${X(0) - 8}" y="${Y(v) + 4}" text-anchor="end">${v}</text>`; });
       let d = ''; for (let px = 0; px <= W; px += 2) { const x = (px - W / 2) / 30, y = a * x * x + b * x + c; d += (px ? 'L' : 'M') + px + ',' + Math.max(-50, Math.min(H + 50, Y(y))).toFixed(1); }
-      g += `<path d="${d}" fill="none" stroke="var(--blue-500)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
-      if (showV && a !== 0) { const vx = -b / (2 * a), vy = a * vx * vx + b * vx + c; g += `<line x1="${X(vx)}" x2="${X(vx)}" y1="0" y2="${H}" stroke="var(--purple-400)" stroke-dasharray="6 6" stroke-width="2"/><circle cx="${X(vx)}" cy="${Y(vy)}" r="7" fill="var(--bg-primary)" stroke="var(--purple-500)" stroke-width="3"/><text x="${X(vx) + 12}" y="${Y(vy) - 10}" style="fill: var(--text-purple-primary); font-weight: 600">vertex (${vx.toFixed(1)}, ${vy.toFixed(1)})</text>`; }
-      g += `<circle cx="${X(target[0])}" cy="${Y(target[1])}" r="11" fill="var(--pear-500)" stroke="var(--pear-700)" stroke-width="3"/>`;
+      g += `<path d="${d}" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--blue-500)"/>`;
+      if (showV && a !== 0) { const vx = -b / (2 * a), vy = a * vx * vx + b * vx + c; g += `<line x1="${X(vx)}" x2="${X(vx)}" y1="0" y2="${H}" stroke-dasharray="6 6" stroke-width="2" style="stroke: var(--purple-400)"/><circle cx="${X(vx)}" cy="${Y(vy)}" r="7" stroke-width="3" style="fill: var(--bg-primary); stroke: var(--purple-500)"/><text x="${X(vx) + 12}" y="${Y(vy) - 10}" style="fill: var(--text-purple-primary); font-weight: 600">vertex (${vx.toFixed(1)}, ${vy.toFixed(1)})</text>`; }
+      g += `<circle cx="${X(target[0])}" cy="${Y(target[1])}" r="11" stroke-width="3" style="fill: var(--pear-500); stroke: var(--pear-700)"/>`;
       $('plot').innerHTML = g;
       const ty = a * target[0] ** 2 + b * target[0] + c, ok = Math.abs(ty - target[1]) < 0.26;
       $('goal').classList.toggle('is-hit', ok);

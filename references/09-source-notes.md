@@ -27,11 +27,13 @@ Re-run: capture the CSS again, then `python3 tools/capture/extract_tokens.py mai
 ## Reconstructed (from the measured tokens, the visible product and the author's Blueprint course)
 
 - The logged-in lesson player layout: top bar arrangement, step segments with partial fill, beats, need card, widget card, "Go deeper" drawer, choice tile geometry (radius 16, min-height 56), feedback sheet layout and copy, end state. The colours and motion are measured; the arrangement is reconstructed.
-- The lesson node artwork: Brilliant draws nodes as detailed SVG/Rive coins; this system draws an original CSS coin in the same proportions and greys.
+- The lesson node artwork: measured from Brilliant's own node SVG (bounding boxes of each layer, then pixel-run sampling of the rendered plate, facet and ring) and **redrawn** from those measurements as original geometry — base ellipse, clipped facet, plate, split ring; review star approximated. No path data was copied. The path rhythm (global centre/start/centre/end, 30px row gap, 45px level-start margin) was measured from the live course page.
 - Dashboard / KPI components (Brilliant's dashboards are behind login).
 - Print, deck and email adaptations (Brilliant has no print system).
 - Sound set (adapted from the author's own AI Engineering Blueprint `src/sound.js`).
-- Fonts: CoFo Brilliant, CoFo Robert and CoFo Semi Mono are commercial (Contrast Foundry) and are not included. Substitutes: Inter, Source Serif 4, DM Mono. Source Code Pro and KaTeX are exact.
+- Fonts: CoFo Brilliant, CoFo Robert and CoFo Semi Mono are commercial (Contrast Foundry) and are not included. CoFo Robert is a sharp contemporary Clarendon named after Robert Besley (Fontstand, Fonts In Use); the display substitute was chosen by rendering candidates against brilliant.org's OG headline art (`/images/opengraph/og-lohp-1.png`) — Besley at wght 600 with −0.02em tracking was the closest (Source Serif 4, used earlier, was too light and too bracketed). Bundled substitutes: Besley, Inter, DM Mono; Source Code Pro and KaTeX are exact.
+- The hero lattice: tile size, angle, stroke colour and fade measured from the hero CSS; re-implemented as a vector SVG with opaque gradient strokes (CSS masks and alpha gradients rasterise or turn grey in PDF→SVG).
+- The social card: composition follows brilliant.org's OG art (oat lattice field, single mark, centred serif promise with italic key words, muted wordmark), with an original mark and copy.
 
 ## What is deliberately not included
 

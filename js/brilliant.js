@@ -14,6 +14,8 @@
  * Exposes window.B = { sfx, reveal, setTheme }:
  *   B.sfx.correct() / wrong() / select() / tap() / reveal() / unlock() / complete() / open() / close()
  *   B.reveal(container) → shows the next [hidden] .beat inside container; returns how many remain
+ *   B.node({shape,segments,progress,icon}) → SVG string for a lesson node; .lesson-node[data-*] render automatically
+ *   B.layoutPath() → applies the global centre/start/centre/end row rhythm to .path__row elements
  *
  * Sound engine adapted from the author's AI Engineering Blueprint (src/sound.js): synthesized
  * with Web Audio, soft and low, always the result of a user action. Muted when the OS asks
@@ -86,6 +88,69 @@
   const saved = store.get('b-theme');
   if (saved && !document.documentElement.hasAttribute('data-theme-locked')) document.documentElement.dataset.theme = saved;
 
+
+  // ── lesson nodes (isometric pressure plates, measured geometry; original drawing) ──
+  let nid = 0;
+  function ring(cx, cy, r, sy, w, segs, done, track, ink) {
+    // a split ring drawn as a circle squashed to the plate's isometric ratio; gaps (6u) at the top/bottom
+    const gap = 6 / (2 * Math.PI * r) * 100, seg = 100 / segs - gap;
+    const off = seg + gap / 2 - 25;                   // centre the first gap at the bottom (6 o'clock)
+    const dash = `${seg} ${gap}`;
+    let out = `<g transform="translate(${cx} ${cy}) scale(1 ${sy})"><circle r="${r}" fill="none" pathLength="100" style="stroke: ${track}" stroke-width="${w}" stroke-dasharray="${dash}" stroke-dashoffset="${off}"/>`;
+    if (done > 0) {
+      const parts = []; for (let k = 0; k < segs; k++) parts.push(k < done ? seg : 0, k < done ? gap : seg + gap);
+      out += `<circle r="${r}" fill="none" pathLength="100" style="stroke: ${ink}" stroke-width="${w}" stroke-dasharray="${parts.join(' ')}" stroke-dashoffset="${off}"/>`;
+    }
+    return out + '</g>';
+  }
+  function starPath(cx, cy, rx, ry, pts = 8, inner = .8) {
+    let d = '';
+    for (let k = 0; k < pts * 2; k++) {
+      const a = -Math.PI / 2 + k * Math.PI / pts, r = k % 2 ? inner : 1;
+      d += (k ? 'L' : 'M') + (cx + rx * r * Math.cos(a)).toFixed(2) + ' ' + (cy + ry * r * Math.sin(a)).toFixed(2);
+    }
+    return d + 'Z';
+  }
+  /** SVG markup for a lesson node.
+   *  opts: { shape: 'lesson'|'review', segments: 2, progress: 0..segments, icon: 'i-play' (sprite id),
+   *          beam: 0 — length (viewBox units) of a fading extrusion under the plate, as in hero/OG art } */
+  function node({ shape = 'lesson', segments = 2, progress = 0, icon = '', beam = 0 } = {}) {
+    const id = 'ln' + (++nid);
+    // the beam starts on the base ellipse's widest line, so the plate always covers its top corners
+    const beamSvg = (x, y, w) => beam ? `<defs><linearGradient id="${id}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--nbeam, var(--nr))"/><stop offset="1" style="stop-color: var(--nbeam, var(--nr)); stop-opacity: 0"/></linearGradient></defs><rect x="${x}" y="${y}" width="${w}" height="${beam}" fill="url(#${id}b)"/>` : '';
+    const glyph = (cx, cy, s) => icon ? `<g class="ln-glyph" transform="translate(${cx} ${cy}) scale(1 .62)"><svg x="${-s / 2}" y="${-s / 2}" width="${s}" height="${s}" viewBox="0 0 24 24"><use href="#${icon}"/></svg></g>` : '';
+    if (shape === 'review') {
+      const base = starPath(60, 81.9, 42.4, 22.6), plate = starPath(60, 74.05, 38.4, 21.6);
+      return `<svg viewBox="0 0 120 117" aria-hidden="true"><defs><clipPath id="${id}"><path d="${base}"/></clipPath></defs>` + beamSvg(17.6, 81.9, 84.8)
+        + `<path d="${base}" style="fill: var(--nb); stroke: var(--nb)" stroke-width="6.5" stroke-linejoin="round"/>`
+        + `<path d="M60 52 L-2 122 H122 Z" style="fill: var(--nfacet)" clip-path="url(#${id})"/>`
+        + `<path d="${plate}" style="fill: var(--nf); stroke: var(--nf)" stroke-width="6.5" stroke-linejoin="round"/>`
+        + ring(60, 74.05, 26.5, .5667, 7, segments, progress, 'var(--nr)', 'var(--np)') + glyph(60, 74.05, 18) + '</svg>';
+    }
+    return `<svg viewBox="0 0 186 195" aria-hidden="true"><defs><clipPath id="${id}"><ellipse cx="93" cy="135.15" rx="67" ry="39.75"/></clipPath></defs>` + beamSvg(26, 135.15, 134)
+      + `<ellipse cx="93" cy="135.15" rx="67" ry="39.75" style="fill: var(--nb)"/>`
+      + `<path d="M93 88 L23 182.3 H163 Z" style="fill: var(--nfacet)" clip-path="url(#${id})"/>`
+      + `<ellipse cx="93" cy="126.3" rx="54" ry="32.4" style="fill: var(--nf)"/>`
+      + ring(93, 126.3, 38.65, .5732, 10.1, segments, progress, 'var(--nr)', 'var(--np)') + glyph(93, 126.3, 26) + '</svg>';
+  }
+  function renderNodes(root = document) {
+    root.querySelectorAll('.lesson-node:not([data-rendered])').forEach(el => {
+      const st = el.dataset.state || 'locked', segs = +(el.dataset.segments || 2);
+      const prog = el.dataset.progress !== undefined ? +el.dataset.progress : st === 'done' ? segs : 0;
+      el.innerHTML = node({ shape: el.dataset.shape || 'lesson', segments: segs, progress: prog, icon: el.dataset.icon || '', beam: +(el.dataset.beam || 0) });
+      el.dataset.rendered = '';
+    });
+  }
+  // global centre-start-centre-end rhythm across every level on the page [measured]
+  function layoutPath(root = document) {
+    const pos = ['center', 'start', 'center', 'end'];
+    root.querySelectorAll('.path').forEach((p, li) => p.querySelectorAll(':scope > .path__row').forEach((r, k) => { if (k === 0) r.classList.add('path__row--level-start'); }));
+    [...root.querySelectorAll('.path__row')].forEach((r, i) => {
+      if (/path__row--(center|start|end)/.test(r.className)) return;
+      r.classList.add('path__row--' + pos[i % 4]);
+    });
+  }
+
   // ── beats ──
   function reveal(container) {
     const next = container.querySelector('.beat[hidden]');
@@ -94,6 +159,7 @@
   }
 
   function wire(root = document) {
+    renderNodes(root); layoutPath(root);
     root.querySelectorAll('[data-theme-toggle]').forEach(b => b.addEventListener('click', () =>
       setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark')));
     root.querySelectorAll('.segmented').forEach(seg => {
@@ -123,11 +189,12 @@
 
   // generic press sound for buttons/links styled as buttons
   document.addEventListener('click', e => {
-    const t = e.target.closest && e.target.closest('.btn3d, .btn, .icon-btn, .step-arrow, .level-header, .path__item, .card--lip');
+    const t = e.target.closest && e.target.closest('.btn3d, .btn, .icon-btn, .step-arrow, .level-header, .path__item, .card--lip, .choice');
+    if (t && t.classList.contains('choice')) return;
     if (!t || t.disabled || t.dataset.sfx === 'none') return;
     sfx.tap();
   }, true);
 
-  window.B = { sfx, reveal, setTheme, wire };
+  window.B = { sfx, reveal, setTheme, wire, node, renderNodes, layoutPath };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => wire()); else wire();
 })();

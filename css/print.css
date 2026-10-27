@@ -27,10 +27,7 @@ body.doc { margin: 0; background: var(--white); color: var(--dark-gray); font: 4
 /* ── Cover ── */
 .cover { page: cover; position: relative; width: 210mm; height: 297mm; overflow: hidden; background: var(--white); break-after: page; }
 .cover__field { position: absolute; inset: 0 0 auto 0; height: 158mm; background: var(--oat-50); overflow: hidden; }
-.cover__field::after { content: ""; position: absolute; inset: auto 0 0 0; height: 70%;
-  background-image: linear-gradient(30deg, transparent 48.75%, rgba(220, 210, 200, .7) 49.5%, rgba(220, 210, 200, .7) 50.5%, transparent 51.25%),
-                    linear-gradient(150deg, transparent 48.75%, rgba(220, 210, 200, .7) 49.5%, rgba(220, 210, 200, .7) 50.5%, transparent 51.25%);
-  background-size: 19mm 11mm; background-position: center bottom; -webkit-mask-image: linear-gradient(to top, #000 30%, transparent); mask-image: linear-gradient(to top, #000 30%, transparent); }
+.cover__field::after { content: ""; position: absolute; inset: auto 0 0 0; height: 158mm; background: var(--lattice-print) center bottom / 210mm 170mm no-repeat; }
 .cover__art { position: absolute; z-index: 1; right: 18mm; top: 30mm; width: 92mm; height: 100mm; }
 .cover__body { position: absolute; z-index: 2; left: 20mm; right: 20mm; top: 166mm; }
 .cover__kicker { font: 700 9pt/1.1 var(--font-sans); letter-spacing: .1em; text-transform: uppercase; color: var(--blue-700); }
@@ -56,10 +53,7 @@ body.doc { margin: 0; background: var(--white); color: var(--dark-gray); font: 4
 
 /* ── Part opener ── */
 .part { page: part; position: relative; width: 210mm; height: 297mm; overflow: hidden; background: var(--oat-50); break-before: page; break-after: page; }
-.part::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%;
-  background-image: linear-gradient(30deg, transparent 48.75%, rgba(220, 210, 200, .75) 49.5%, rgba(220, 210, 200, .75) 50.5%, transparent 51.25%),
-                    linear-gradient(150deg, transparent 48.75%, rgba(220, 210, 200, .75) 49.5%, rgba(220, 210, 200, .75) 50.5%, transparent 51.25%);
-  background-size: 19mm 11mm; background-position: center bottom; -webkit-mask-image: linear-gradient(to top, #000 30%, transparent); mask-image: linear-gradient(to top, #000 30%, transparent); }
+.part::after { content: ""; position: absolute; inset: auto 0 0 0; height: 170mm; background: var(--lattice-print) center bottom / 210mm 170mm no-repeat; }
 .part__inner { position: absolute; z-index: 1; left: 22mm; right: 22mm; top: 44mm; }
 .part__k { display: flex; align-items: center; gap: 3mm; font: 700 9.5pt/1 var(--font-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--acc-ink, var(--blue-700)); }
 .part__t { font: 500 50pt/1.02 var(--font-display); letter-spacing: -.025em; color: var(--black); margin: 6mm 0 5mm; max-width: 160mm; }

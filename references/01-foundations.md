@@ -77,15 +77,17 @@ On any screen: ~85% white/oat, ~10% black type, one primary button, at most two 
 
 ## Typography
 
-Brilliant ships three licensed Contrast Foundry faces; substitutes load from Google Fonts. Font stacks put the real faces first.
+Brilliant ships three licensed Contrast Foundry faces. Open substitutes are bundled in `tokens/fonts/` (WOFF, SIL OFL) with a Google Fonts fallback; font stacks put the real faces first.
 
 | Token | Brilliant | Substitute | Role |
 |---|---|---|---|
 | `--font-sans` | CoFo Brilliant 400/500/700 | Inter | All UI, headings, body. |
-| `--font-display` | CoFo Robert 500 | Source Serif 4 (500, optical size) | Display headlines only. |
+| `--font-display` | CoFo Robert 500 + italic — a sharp contemporary Clarendon | **Besley** instanced at wght 600, registered as "Besley Display" 500 (Besley revives Robert Besley's original Clarendon; 600 matches CoFo Robert Medium's colour) | Display headlines only; key words in italic (`<em>`). |
 | `--font-semi-mono` | CoFo Semi Mono | DM Mono | Interactive readouts, eyebrows. |
 | `--font-code` | Source Code Pro | Source Code Pro (exact) | Code. |
 | `--font-math` | KaTeX_Main | KaTeX (exact) | Maths. |
+
+**Display italic for emphasis.** Brilliant's campaign art sets the key words of a headline in the display italic: "Your personal tutor for *math* and *coding*". Inside any `.ts-display-*` / `.display-*` element, `<em>` switches to the italic automatically. Use it for one or two words, never a whole line.
 
 ### The scale (exact, from production)
 

@@ -70,7 +70,7 @@
 <main class="course-layout">
   <aside class="course-card">
     <svg class="course-card__art" viewBox="0 0 100 100" aria-hidden="true">
-      <g transform="translate(50 56)"><path d="M0 -30 L34 -10 L0 10 L-34 -10Z" fill="var(--blue-400)"/><path d="M-34 -10 L0 10 L0 30 L-34 10Z" fill="var(--blue-600)"/><path d="M34 -10 L0 10 L0 30 L34 10Z" fill="var(--blue-700)"/><path d="M0 -44 L14 -36 L0 -28 L-14 -36Z" fill="var(--pear-500)"/></g>
+      <g transform="translate(50 56)"><path d="M0 -30 L34 -10 L0 10 L-34 -10Z" style="fill: var(--blue-400)"/><path d="M-34 -10 L0 10 L0 30 L-34 10Z" style="fill: var(--blue-600)"/><path d="M34 -10 L0 10 L0 30 L34 10Z" style="fill: var(--blue-700)"/><path d="M0 -44 L14 -36 L0 -28 L-14 -36Z" style="fill: var(--pear-500)"/></g>
     </svg>
     <h1 class="course-card__title">Logic</h1>
     <p class="course-card__desc">Stretch your analytic muscles with codebreaking and logical robots.</p>
@@ -86,31 +86,31 @@
 
   <div class="course-path">
     <section class="level" aria-label="Level 1">
-      <div class="level__head"><button class="level-header level-header--current" aria-expanded="false"><span class="level-header__kicker">Level 1</span><span class="level-header__title">Order logic</span></button></div>
+      <div class="level__head export-flat"><button class="level-header level-header--current" aria-expanded="false"><span class="level-header__kicker">Level 1</span><span class="level-header__title">Order logic</span></button></div>
       <div class="path">
-        <div class="path__row"><button class="path__item" aria-label="Order logic, completed"><span class="node node--done hue-blue"><span class="node__tick"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-star"/></svg></span><span class="path__label">Order logic</span></button></div>
-        <div class="path__row"><button class="path__item"><span class="node node--done hue-blue"><span class="node__tick"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-star"/></svg></span><span class="path__label">Neighbours</span></button></div>
+        <div class="path__row"><button class="path__item" aria-label="Order logic, completed"><span class="lesson-node" data-state="done" data-hue="blue"></span><span class="path__label"><span>Order logic</span></span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="done" data-hue="blue"></span><span class="path__label"><span>Neighbours</span></span></button></div>
         <div class="path__row">
           <div class="node-wrap">
-            <button class="path__item" aria-current="step" aria-expanded="true" aria-controls="pop"><span class="node node--current hue-blue"><span class="start-bubble">START</span><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-play"/></svg></span><span class="path__label">Heights</span></button>
+            <button class="path__item" aria-current="step" aria-expanded="true" aria-controls="pop"><span class="start-bubble">Start</span><span class="lesson-node" data-state="current" data-hue="blue" data-progress="1"></span><span class="path__label"><span>Heights</span></span></button>
             <div class="popover-card" id="pop" role="dialog" aria-label="Heights">
               <div class="stack" style="--stack-gap: 4px"><div class="popover-card__title">Heights</div><div class="popover-card__meta">Lesson 3 · 9 exercises · ~6 min</div></div>
               <a class="btn3d btn3d--blue btn3d--block" href="app-lesson.html"><span class="btn3d__face">Start</span></a>
             </div>
           </div>
         </div>
-        <div class="path__row"><button class="path__item"><span class="node"><svg class="node__glyph" viewBox="0 0 24 24"><use href="#i-lock"/></svg></span><span class="path__label">Comparisons</span></button></div>
-        <div class="path__row"><button class="path__item"><span class="node node--review"></span><span class="path__label">Level review</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked"></span><span class="path__label"><span>Comparisons</span></span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked" data-shape="review"></span><span class="path__label"><span>Level review</span></span></button></div>
       </div>
     </section>
     <section class="level" aria-label="Level 2">
-      <div class="level__head"><button class="level-header"><span class="level-header__kicker">Level 2</span><span class="level-header__title">Negation</span></button></div>
+      <div class="level__head export-flat"><button class="level-header"><span class="level-header__kicker">Level 2</span><span class="level-header__title">Negation</span></button></div>
       <div class="path">
-        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Relative comparisons</span></button></div>
-        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Value logic</span></button></div>
-        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Negation</span></button></div>
-        <div class="path__row"><button class="path__item"><span class="node"></span><span class="path__label">Between</span></button></div>
-        <div class="path__row"><button class="path__item"><span class="node node--review"></span><span class="path__label">Level review</span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked"></span><span class="path__label"><span>Relative comparisons</span></span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked"></span><span class="path__label"><span>Value logic</span></span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked"></span><span class="path__label"><span>Negation</span></span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked"></span><span class="path__label"><span>Between</span></span></button></div>
+        <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked" data-shape="review"></span><span class="path__label"><span>Level review</span></span></button></div>
       </div>
     </section>
   </div>

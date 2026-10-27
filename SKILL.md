@@ -14,16 +14,17 @@ Every colour, text style, radius, spacing step, shadow, breakpoint, z-index and 
 | Path | What it is |
 |---|---|
 | `tokens/tokens.css` | All tokens as CSS variables: 174 primitives, 186 semantic roles × light/dark, 34 text styles (`.ts-*` classes), scales, motion. **Load first.** |
-| `tokens/fonts.css` | Google-Fonts substitutes for the licensed CoFo faces (Inter, Source Serif 4, DM Mono) + exact Source Code Pro. |
+| `tokens/fonts.css` · `tokens/fonts/` | Bundled OFL substitutes for the licensed CoFo faces — **Besley** (CoFo Robert, a Clarendon), Inter (CoFo Brilliant), DM Mono (CoFo Semi Mono) — plus exact Source Code Pro. Works offline; a Google-Fonts import covers single-file pages. |
 | `tokens/tokens.json` · `tokens/tailwind.preset.js` | Same tokens as DTCG JSON and a Tailwind preset. |
-| `css/brilliant.css` | Every component: 3D buttons, pills, badges, chips, segmented, tabs, cards, course map, nodes, lesson player, feedback, inputs, slider, code, callouts, tables, overlays, motion. |
+| `css/brilliant.css` | Every component: 3D buttons, pills, badges, chips, segmented, tabs, cards, course map, lesson nodes, lesson player, feedback, inputs, slider, code, callouts, tables, overlays, motion, and the vector hero lattice (`--lattice-*`). |
 | `css/print.css` · `css/deck.css` | Paged A4 documents; 1920×1080 decks. |
-| `js/brilliant.js` | Theme toggle, segmented/chips/tabs/choices wiring, slider fill, beat reveal, and the synthesized sound set (`B.sfx.correct()` …). |
+| `js/brilliant.js` | Theme toggle, segmented/chips/tabs/choices wiring, slider fill, beat reveal, the synthesized sound set (`B.sfx.correct()` …), **lesson-node rendering** (`B.node()`, `.lesson-node` → SVG) and the path rhythm (`B.layoutPath()`). |
 | `assets/icons.svg` | Original 24px icon sprite (`#i-check`, `#i-x`, …). Run `tools/inline_icons.py` so pages work from `file://`. |
-| `templates/` | Working starting points: `landing`, `app-course`, `app-lesson`, `dashboard`, `interactive`, `deck`, `document`. |
+| `templates/` | Working starting points: `landing`, `app-course`, `app-lesson`, `dashboard`, `interactive`, `deck`, `document`, `social-card` (1200×630 Open Graph). |
 | `tools/md2pdf/md2pdf.py` | Markdown → Brilliant-style PDF (cover, contents, part openers, coins, callouts, black-header tables, Mermaid, KaTeX). |
 | `references/` | The rules. Read the one for your output before building. |
-| `preview/index.html` | Living specimen of every token and component. |
+| `tools/export_vector.py` | Any page or element → true vector SVG (README art, docs, Figma). `tools/lattice.py` regenerates the lattice SVGs. |
+| `preview/index.html` · `preview/poster.html` · `preview/svg/` | Living specimen, the README poster, and vector exports of every template. |
 
 ## How to use it
 
@@ -36,22 +37,23 @@ Every colour, text style, radius, spacing step, shadow, breakpoint, z-index and 
    - interactive visual, explorable, chart, diagram, lesson → `06-interactive-visuals.md`
    - copy and microcopy → `07-voice-and-content.md`
 3. **Use roles, never raw hex**: `var(--text-secondary)`, `var(--bg-oat)`, `var(--border-solid)`. Ramps (`--blue-500`) are for charts, illustrations and course hues only.
-4. **Verify by looking**: screenshot light and dark (`python3 tools/screenshot.py page.html out 1440 900 --full`), check 320px width, and run the checklist at the end of this file.
+4. **Verify by looking**: screenshot light and dark (`python3 tools/screenshot.py page.html out 1440 900 --full`), check 320px width, and run the checklist at the end of this file. For crisp images in a README or doc, export vector: `python3 tools/export_vector.py page.html out.svg --width 1440 --height 900 [--theme dark] [--selector '#id']`.
 
 ## The rules that make it look like Brilliant
 
 1. **White and black first.** `--bg-primary` canvas, `--text-primary` ink. Most of any screen is white space and black type. Long copy uses `--text-secondary` (60% black); captions and inactive labels `--text-tertiary` (40%).
-2. **Serif for big ideas, sans for everything else.** Display styles (`.ts-display-*`, 24–76px, weight 500, tight negative tracking) are the serif. Headings are the sans at 700. UI labels are the sans at 500. Never bold the serif; never use the serif below 24px.
+2. **Serif for big ideas, sans for everything else.** Display styles (`.ts-display-*`, 24–76px, weight 500, tight negative tracking) are the serif — a sharp Clarendon. Campaign headlines put their key words in the serif *italic* with `<em>` ("Your personal tutor for <em>maths</em> and <em>code</em>"). Headings are the sans at 700. UI labels are the sans at 500. Never bold the serif; never use the serif below 24px.
 3. **One lip-pressed primary per view.** The product CTA is the **3D button**: face `--bg-inverse-secondary` (#383838) resting 4px above a black lip, 100ms ease-out press. Course actions use the blue 3D button; a correct answer's Continue is green. Marketing CTAs are flat pills (green `--bg-success-primary`, h60, radius full, soft 0 4px 7px shadow).
 4. **Depth is a solid lip, never a blur.** Tiles, choices, level headers and inputs that you press sit on `0 4px 0 0 <lip>`; on `:active` they translate down 4px and the lip disappears. Blurred shadows are only for floating surfaces (`--shadow-elevation-base/md/lg`).
 5. **Everything is rounded generously.** Buttons and chips are pills (54–60px). Cards 20px (`--radius-2xl`), lesson popovers 40px, marketing bands and stat tiles 44px, modals 32px, inputs 12px, badges 12px.
 6. **Borders are 2px in product, 1px in marketing.** Product cards: 2px `--border-primary` (10% black). Choices and lip tiles: 2px `--border-solid` (#e5e5e5). Marketing tiles and bands: 1px `--border-oat` (#e4e4e4).
-7. **Oat is the stage.** `--bg-oat` (#f5f3f1) sits behind heroes, diagrams, interactives, quotes and bands; the hero adds the isometric line lattice fading up from the bottom.
+7. **Oat is the stage.** `--bg-oat` (#f5f3f1) sits behind heroes, diagrams, interactives, quotes and bands; heroes, slides, covers and social cards add the isometric line lattice (30°/150° lines, strongest at the bottom) via `var(--lattice-hero|field|print)`.
 8. **Colour means something.** Blue = selection, focus, links, course actions. Green = correct, success, sign-up. Pear (#d8e82e) = XP, streaks, rewards and the key-term marker band. Yellow = retry. Red only marks a wrong choice; the incorrect feedback sheet is **grey**. Course hues (blue, green, purple, orange, teal, pink, papaya, pear, mint) colour nodes, kickers, charts.
 9. **Feedback glows from the bottom.** Correct = green-200 radial glow + "Correct!" + green 3D Continue + white "Why?". Incorrect = grey glow + "Not quite" + a hint, never the answer. Wrong choices shake (`shakeX`).
 10. **One idea per screen.** Lessons reveal content in beats; each step has one question; Check stays disabled until there's an answer; slides have one headline that states the finding.
 11. **Springy, short motion.** Presses 100ms ease-out; things that appear use `--ease-spring-smooth` (cubic-bezier(.2,1.1,.36,1)) over 300–830ms; content rises 8–12px as it fades in. Honour `prefers-reduced-motion`.
 12. **Respect the brand line.** This is Brilliant's *design language*, not its brand. Never use the Brilliant name, wordmark, Koji or other mascots, their illustrations or animations, or their licensed fonts without a licence, and never make a page that could pass for brilliant.org. Use the user's own product name (templates use the placeholder "Lumen").
+13. **Lessons are 3D plates on a path, not flat circles.** Each lesson is an isometric plate: a base ellipse, a lighter top plate, and a split progress ring (two arcs with gaps at top and bottom) — grey when locked, the course hue when current (gently floating, with a Start bubble), filled when done; reviews are an 8-point star plate. Rows sit 30px apart in a 392px column and step centre → start → centre → end. Always use `.lesson-node` (rendered by `js/brilliant.js`); never draw a node with CSS circles or an emoji. Spec: `references/02-components.md` → Lesson node.
 
 ## Quick reference
 
@@ -69,6 +71,15 @@ Every colour, text style, radius, spacing step, shadow, breakpoint, z-index and 
 <!-- answer tiles + feedback -->
 <div class="choices" role="radiogroup"><button class="choice" role="radio" aria-checked="false">Bo</button>…</div>
 <div class="feedback feedback--correct"><div class="feedback__inner">…</div></div>
+<!-- lesson path: nodes render from data attributes; rows get the rhythm automatically -->
+<div class="path">
+  <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="done" data-hue="blue"></span><span class="path__label"><span>Order logic</span></span></button></div>
+  <div class="path__row"><button class="path__item"><span class="start-bubble">Start</span><span class="lesson-node" data-state="current" data-hue="blue" data-progress="1"></span><span class="path__label"><span>Heights</span></span></button></div>
+  <div class="path__row"><button class="path__item"><span class="lesson-node" data-state="locked" data-shape="review"></span><span class="path__label"><span>Level review</span></span></button></div>
+</div>
+<!-- standalone mark (SVG string): B.node({shape:'lesson', segments:2, progress:2, beam:120}) -->
+<!-- campaign headline -->
+<h1 class="ts-display-6xl">Your personal tutor for <em>maths</em> and <em>code</em></h1>
 <!-- type -->
 <h1 class="ts-display-6xl">Your personal tutor</h1> <h2 class="ts-heading-lg">Logic</h2> <p class="ts-body-lg c-secondary">…</p>
 ```
@@ -81,7 +92,8 @@ Themes: `<html data-theme="light|dark">` (dark follows the OS when unset). Highe
 - At 320px: no sideways scroll, controls ≥ 44px tall, 16–20px gutters.
 - One primary 3D button per view; disabled until it can act.
 - Only roles in components; ramps only in charts/illustrations.
-- Serif only at ≥ 24px, weight 500; sans headings 700; UI labels 500.
+- Serif only at ≥ 24px, weight 500; sans headings 700; UI labels 500; key words of a campaign headline in the serif italic.
+- Lesson paths use `.lesson-node` plates with split rings and the centre/start/centre/end rhythm.
 - Every pressable thing has the lip, a 100ms press and a visible focus ring (`0 0 0 3px var(--border-select)`).
 - Copy follows `07-voice-and-content.md`: buttons are verbs, titles state the finding, no exclamation marks except "Correct!".
 - No Brilliant name, logo, mascot or illustration anywhere.

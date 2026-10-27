@@ -86,9 +86,9 @@ Rules for any printed piece:
 - One serif title per page at most, besides section titles.
 - Keep `break-inside: avoid` on figures, callouts, code and table rows (already in `print.css`).
 - Charts for print: SVG, Inter text, series in the chart order (blue-500, orange-500, purple-500, teal-500, pink-500, yellow-600), direct line labels in the hue's 700 ink, light grid, no chart border.
-- Fonts: the substitutes load from Google Fonts when online; offline, install Inter and Source Serif 4 locally or the PDF falls back to Helvetica/Georgia.
+- Fonts: the substitutes are bundled in `tokens/fonts/` and `md2pdf` points the stylesheet at them, so PDFs render identically offline (Besley display, Inter body, DM Mono, Source Code Pro). Covers and part openers draw the vector lattice (`var(--lattice-print)`).
 
 ## Other document formats
 
-- **Word / Google Docs**: headings in Source Serif 4 500 (Title 28pt, H1 20pt), body Inter 10.5pt, tables with a black header row and white bold text, callouts as shaded single-cell tables in the tertiary tints.
+- **Word / Google Docs**: headings in Besley SemiBold (install from `tokens/fonts/` or Google Fonts; CoFo Robert if licensed) (Title 28pt, H1 20pt), body Inter 10.5pt, tables with a black header row and white bold text, callouts as shaded single-cell tables in the tertiary tints.
 - **Email**: system-safe version: Arial/Helvetica 16px, black text, one green or black pill button (`border-radius: 999px`), oat (#f5f3f1) footer band.

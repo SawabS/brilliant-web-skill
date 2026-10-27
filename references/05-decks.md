@@ -28,5 +28,5 @@ Template: `templates/deck.html` + `css/deck.css`. Slides are authored at **1920�
 
 ## Other slide tools
 
-- **PowerPoint / Keynote / Google Slides**: 16:9; title font Source Serif 4 Medium (or CoFo Robert if licensed) at 54–66pt; body Inter 20–24pt; background white or #F5F3F1; accents #456DFF, #29CC57, #9D62FF, #FF8D23; rounded rectangles radius ≈ 0.25in with 1.5pt #E5E5E5 outline and no shadow; tables with a black header row.
+- **PowerPoint / Keynote / Google Slides**: 16:9; title font Besley SemiBold (or CoFo Robert Medium if licensed), key words in its italic at 54–66pt; body Inter 20–24pt; background white or #F5F3F1; accents #456DFF, #29CC57, #9D62FF, #FF8D23; rounded rectangles radius ≈ 0.25in with 1.5pt #E5E5E5 outline and no shadow; tables with a black header row.
 - **Claude Slides artifacts**: use these same values as the theme (fonts, colours, radius), and keep the one-finding-per-slide headline rule.

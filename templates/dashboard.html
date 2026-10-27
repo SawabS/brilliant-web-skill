@@ -119,14 +119,14 @@
   const W = 640, H = 260, L = 36, R = 92, T = 12, B = 28, max = 120;
   const x = i => L + i * (W - L - R) / (weeks.length - 1), y = v => T + (H - T - B) * (1 - v / max);
   let s = '';
-  for (let v = 0; v <= max; v += 30) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--border-secondary)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+  for (let v = 0; v <= max; v += 30) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" style="stroke: var(--border-secondary)"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
   weeks.forEach((w, i) => { if (i % 3 === 0 || i === weeks.length - 1) s += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle">${w}</text>`; });
-  s += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--border-gray-primary)"/>`;
+  s += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" style="stroke: var(--border-gray-primary)"/>`;
   series.forEach(se => {
     const pts = se.data.map((v, i) => `${x(i)},${y(v)}`).join(' ');
-    s += `<polyline points="${pts}" fill="none" stroke="var(--${se.hue}-500)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s += `<polyline points="${pts}" fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" style="stroke: var(--${se.hue}-500)"/>`;
     const li = se.data.length - 1;
-    s += `<circle cx="${x(li)}" cy="${y(se.data[li])}" r="5" fill="var(--bg-primary)" stroke="var(--${se.hue}-500)" stroke-width="3"/>`;
+    s += `<circle cx="${x(li)}" cy="${y(se.data[li])}" r="5" stroke-width="3" style="fill: var(--bg-primary); stroke: var(--${se.hue}-500)"/>`;
     s += `<text class="lbl" x="${x(li) + 10}" y="${y(se.data[li]) + 4}" style="fill: var(--text-${se.hue}-primary)">${se.name}</text>`;
   });
   document.getElementById('line').innerHTML = s;

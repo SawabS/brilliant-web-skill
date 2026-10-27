@@ -50,10 +50,10 @@
   <section class="slide slide--oat">
     <div class="slide__lattice"></div>
     <svg style="position: absolute; right: 150px; top: 140px; width: 560px; height: 520px" viewBox="0 0 92 100" aria-hidden="true"><g transform="translate(46 62)">
-      <path d="M0 -22 L36 -1 L0 20 L-36 -1Z" fill="var(--blue-400)"/><path d="M-36 -1 L0 20 L0 32 L-36 11Z" fill="var(--blue-600)"/><path d="M36 -1 L0 20 L0 32 L36 11Z" fill="var(--blue-700)"/>
-      <g transform="translate(0 -17)"><path d="M0 -15 L26 0 L0 15 L-26 0Z" fill="var(--pear-500)"/><path d="M-26 0 L0 15 L0 23 L-26 8Z" fill="var(--pear-600)"/><path d="M26 0 L0 15 L0 23 L26 8Z" fill="var(--pear-700)"/></g>
-      <g transform="translate(0 -31)"><path d="M0 -9 L16 0 L0 9 L-16 0Z" fill="var(--pink-400)"/><path d="M-16 0 L0 9 L0 14 L-16 5Z" fill="var(--pink-600)"/><path d="M16 0 L0 9 L0 14 L16 5Z" fill="var(--pink-700)"/></g>
-      <circle cx="-30" cy="-46" r="6" fill="var(--yellow-400)"/><rect x="24" y="-56" width="13" height="13" rx="3.5" fill="var(--teal-300)" transform="rotate(14 30 -50)"/></g></svg>
+      <path d="M0 -22 L36 -1 L0 20 L-36 -1Z" style="fill: var(--blue-400)"/><path d="M-36 -1 L0 20 L0 32 L-36 11Z" style="fill: var(--blue-600)"/><path d="M36 -1 L0 20 L0 32 L36 11Z" style="fill: var(--blue-700)"/>
+      <g transform="translate(0 -17)"><path d="M0 -15 L26 0 L0 15 L-26 0Z" style="fill: var(--pear-500)"/><path d="M-26 0 L0 15 L0 23 L-26 8Z" style="fill: var(--pear-600)"/><path d="M26 0 L0 15 L0 23 L26 8Z" style="fill: var(--pear-700)"/></g>
+      <g transform="translate(0 -31)"><path d="M0 -9 L16 0 L0 9 L-16 0Z" style="fill: var(--pink-400)"/><path d="M-16 0 L0 9 L0 14 L-16 5Z" style="fill: var(--pink-600)"/><path d="M16 0 L0 9 L0 14 L16 5Z" style="fill: var(--pink-700)"/></g>
+      <circle cx="-30" cy="-46" r="6" style="fill: var(--yellow-400)"/><rect x="24" y="-56" width="13" height="13" rx="3.5" transform="rotate(14 30 -50)" style="fill: var(--teal-300)"/></g></svg>
     <div style="margin-top: auto; margin-bottom: 120px; max-width: 1000px">
       <p class="s-kicker">Research review · October 2026</p>
       <h1 class="s-display-xl" style="margin: 36px 0 28px">Scaling study</h1>
@@ -157,11 +157,11 @@
   const S = [{ n: 'Unigram', h: 'blue', d: [.55, .589, .57, .54, .52, .47, .43] }, { n: 'BPE', h: 'orange', d: [.43, .46, .45, .43, .41, .38, .35] }];
   const W = 1500, H = 560, L = 70, R = 170, T = 20, B = 50, x = k => L + k * (W - L - R) / (sizes.length - 1), y = v => T + (H - T - B) * (1 - (v - .3) / .35);
   let g = '';
-  [.3, .4, .5, .6].forEach(v => g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--border-primary)" stroke-width="2"/><text x="${L - 16}" y="${y(v) + 8}" text-anchor="end" style="font: 400 22px var(--font-sans); fill: var(--text-tertiary)">${v.toFixed(1)}</text>`);
+  [.3, .4, .5, .6].forEach(v => g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke-width="2" style="stroke: var(--border-primary)"/><text x="${L - 16}" y="${y(v) + 8}" text-anchor="end" style="font: 400 22px var(--font-sans); fill: var(--text-tertiary)">${v.toFixed(1)}</text>`);
   sizes.forEach((s, k) => g += `<text x="${x(k)}" y="${H - 6}" text-anchor="middle" style="font: 400 22px var(--font-sans); fill: var(--text-tertiary)">${s}</text>`);
-  S.forEach(se => { g += `<polyline points="${se.d.map((v, k) => `${x(k)},${y(v)}`).join(' ')}" fill="none" stroke="var(--${se.h}-500)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`;
-    const k = se.d.length - 1; g += `<circle cx="${x(k)}" cy="${y(se.d[k])}" r="10" fill="var(--bg-oat)" stroke="var(--${se.h}-500)" stroke-width="6"/><text x="${x(k) + 26}" y="${y(se.d[k]) + 9}" style="font: 500 26px var(--font-sans); fill: var(--text-${se.h}-primary)">${se.n}</text>`; });
-  g += `<circle cx="${x(1)}" cy="${y(.589)}" r="12" fill="var(--blue-500)"/><text x="${x(1)}" y="${y(.589) - 28}" text-anchor="middle" style="font: 700 24px var(--font-sans); fill: var(--text-primary)">0.589</text>`;
+  S.forEach(se => { g += `<polyline points="${se.d.map((v, k) => `${x(k)},${y(v)}`).join(' ')}" fill="none" style="stroke: var(--${se.h}-500)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const k = se.d.length - 1; g += `<circle cx="${x(k)}" cy="${y(se.d[k])}" r="10" stroke-width="6" style="fill: var(--bg-oat); stroke: var(--${se.h}-500)"/><text x="${x(k) + 26}" y="${y(se.d[k]) + 9}" style="font: 500 26px var(--font-sans); fill: var(--text-${se.h}-primary)">${se.n}</text>`; });
+  g += `<circle cx="${x(1)}" cy="${y(.589)}" r="12" style="fill: var(--blue-500)"/><text x="${x(1)}" y="${y(.589) - 28}" text-anchor="middle" style="font: 700 24px var(--font-sans); fill: var(--text-primary)">0.589</text>`;
   document.getElementById('chart').innerHTML = g;
   fit(); go(Math.max(0, (parseInt(location.hash.slice(1)) || 1) - 1));
 </script>

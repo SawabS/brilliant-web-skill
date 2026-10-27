@@ -429,7 +429,7 @@ module.exports = {
           "\"CoFo Brilliant\", \"Inter\", \"Helvetica Neue\", Arial, system-ui, sans-serif"
         ],
         "display": [
-          "\"CoFo Robert\", \"Source Serif 4\", \"Newsreader\", Georgia, serif"
+          "\"CoFo Robert\", \"Besley Display\", \"Besley\", Georgia, serif"
         ],
         "semimono": [
           "\"CoFo Semi Mono\", \"DM Mono\", \"IBM Plex Mono\", ui-monospace, monospace"

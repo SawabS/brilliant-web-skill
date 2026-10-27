@@ -259,10 +259,10 @@ def build(md_path: pathlib.Path, katex_dir: str | None) -> str:
             for i, s in enumerate(as_list(meta.get("stats"))[:4]))
         cover = f'''<section class="cover"><div class="cover__field"></div>
 <svg class="cover__art" viewBox="0 0 92 100" aria-hidden="true"><g transform="translate(46 62)">
-<path d="M0 -22 L36 -1 L0 20 L-36 -1Z" fill="var(--blue-400)"/><path d="M-36 -1 L0 20 L0 32 L-36 11Z" fill="var(--blue-600)"/><path d="M36 -1 L0 20 L0 32 L36 11Z" fill="var(--blue-700)"/>
-<g transform="translate(0 -17)"><path d="M0 -15 L26 0 L0 15 L-26 0Z" fill="var(--pear-500)"/><path d="M-26 0 L0 15 L0 23 L-26 8Z" fill="var(--pear-600)"/><path d="M26 0 L0 15 L0 23 L26 8Z" fill="var(--pear-700)"/></g>
-<g transform="translate(0 -31)"><path d="M0 -9 L16 0 L0 9 L-16 0Z" fill="var(--pink-400)"/><path d="M-16 0 L0 9 L0 14 L-16 5Z" fill="var(--pink-600)"/><path d="M16 0 L0 9 L0 14 L16 5Z" fill="var(--pink-700)"/></g>
-<circle cx="-30" cy="-46" r="6" fill="var(--yellow-400)"/><rect x="24" y="-56" width="13" height="13" rx="3.5" fill="var(--teal-300)" transform="rotate(14 30 -50)"/></g></svg>
+<path d="M0 -22 L36 -1 L0 20 L-36 -1Z" style="fill: var(--blue-400)"/><path d="M-36 -1 L0 20 L0 32 L-36 11Z" style="fill: var(--blue-600)"/><path d="M36 -1 L0 20 L0 32 L36 11Z" style="fill: var(--blue-700)"/>
+<g transform="translate(0 -17)"><path d="M0 -15 L26 0 L0 15 L-26 0Z" style="fill: var(--pear-500)"/><path d="M-26 0 L0 15 L0 23 L-26 8Z" style="fill: var(--pear-600)"/><path d="M26 0 L0 15 L0 23 L26 8Z" style="fill: var(--pear-700)"/></g>
+<g transform="translate(0 -31)"><path d="M0 -9 L16 0 L0 9 L-16 0Z" style="fill: var(--pink-400)"/><path d="M-16 0 L0 9 L0 14 L-16 5Z" style="fill: var(--pink-600)"/><path d="M16 0 L0 9 L0 14 L16 5Z" style="fill: var(--pink-700)"/></g>
+<circle cx="-30" cy="-46" r="6" style="fill: var(--yellow-400)"/><rect x="24" y="-56" width="13" height="13" rx="3.5" style="fill: var(--teal-300)" transform="rotate(14 30 -50)"/></g></svg>
 <div class="cover__body">{f'<div class="cover__kicker">{html.escape(meta["kicker"])}</div>' if meta.get("kicker") else ""}
 <h1 class="cover__title">{html.escape(meta.get("title", md_path.stem))}</h1>
 {f'<div class="cover__subtitle">{html.escape(meta["subtitle"])}</div>' if meta.get("subtitle") else ""}
@@ -274,7 +274,7 @@ def build(md_path: pathlib.Path, katex_dir: str | None) -> str:
         body = f'<h1 style="font: 500 34pt/1.05 var(--font-display); letter-spacing: -.02em; margin: 0 0 8mm">{html.escape(meta["title"])}</h1>' + body
 
     css = "".join((ROOT / p).read_text() for p in ("tokens/fonts.css", "tokens/tokens.css", "css/brilliant.css", "css/print.css"))
-    css = css.replace("@import url(", "@import url(")  # fonts load when online; otherwise local fallbacks
+    css = css.replace('url("fonts/', 'url("' + (ROOT / "tokens" / "fonts").as_uri() + '/')  # bundled OFL fonts, offline-safe
     short = meta.get("short_title") or meta.get("title", md_path.stem)
     css += '\n@page { @bottom-left { content: "' + short.replace('"', "'") + '"; } }\n'
     css += "body.doc{background:#fff} .doc .badge{font-size:7.5pt}\n"
